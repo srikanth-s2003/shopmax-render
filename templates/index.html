@@ -1,0 +1,54 @@
+<div id="maskf">
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+
+  {% include 'banner.html' %}
+
+    <div class="site-section">
+      <div class="container">
+        <div class="title-section">
+          <h2 class="text-uppercase"><span class="d-block">Categories</span></h2>
+        </div>
+        <div class="row align-items-stretch">
+
+
+          <div class="category container" style="margin-bottom:30px">
+            <div class="product-category">
+              <a href="{% url 'shop_category' 'mobile-phones' %}"><div class="catego"><img src="{% static 'images/mobilephone.webp' %}" alt="">
+              <p style="padding: 10px;">Mobile</p>
+              </div>
+              <a href="{% url 'shop_category' 'laptops' %}"><div class="catego"><img src="{% static 'images/laptops.webp' %}" alt=""><p style="padding: 10px;">Laptops</p></div>
+              <a href="{% url 'shop_category' 'tws' %}"><div class="catego"><img src="{% static 'images/twsfinal.webp' %}" alt=""><p style="padding: 10px;">TWS</p></div>
+              <a href="{% url 'shop_category' 'accessories' %}"><div class="catego"><img src="{% static 'images/access.avif' %}" alt=""><p style="padding: 10px;">Accessories</p></div>
+            </div>
+          </div>
+      </div>
+    </div>
+
+    
+    <div class="site-section">
+      <div class="container">
+        <div class="row">
+          <div class="title-section  col-12">
+            <h2 class="text-uppercase">Popular Products</h2>
+          </div>
+        </div>
+
+        <div class="row" style="box-sizing:border-box">
+          {% for product in products %}
+          <div class="col-lg-4 col-md-6 item-entry mb-4" style="">
+            <a href="{% url 'single_product' product.id %}" class="product-item md-height bg-gray d-block" style="padding-bottom:5px;">
+              <img src="{{product.images1.url}}" alt="Image" style="width: 100%; height: 290px; object-fit:contain;">
+            </a>
+            <h2 class="item-title" style="text-align: center;"><a href="{% url 'single_product' product.id %}">{{product.name}}</a></h2>
+            <strong class="item-price" style="display: block; text-align:center;padding:5px">&#x20b9;{{product.price}}</strong>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+{% endblock %}
+</div>  

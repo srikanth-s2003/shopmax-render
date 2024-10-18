@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% load static %}
+    {% block content %}
+    
+    <div class="custom-border-bottom py-3">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12 mb-0"><a href="{% url 'home' %}">Home</a> <span class="mx-2 mb-0">/</span> <strong class="text-black">Shop</strong></div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="site-section" style="">
+      <div class="container">
+
+        <div class="row mb-5">
+          <div class="col-md-12 order-1">
+
+            <div class="row align" style="height: 10px;">
+              <div class="col-md-12 mb-5">
+                <div class="float-md-left"><h2 class="text-black h5">Shop All</h2></div>
+                <div class="d-flex">
+                  <div class="dropdown mr-1 ml-md-auto">
+                  </div>
+                  <div class="btn-group">
+                    <button type="button" class="btn btn-white btn-sm dropdown-toggle px-4" id="dropdownMenuReference" data-toggle="dropdown">Sort By</button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuReference">
+                      <a class="dropdown-item" href="?sort_by=name&order={% if sort_by == 'name' and order == 'asc' %}desc{% else %}asc{% endif %}">Name, A to Z</a>
+                      <div class="dropdown-divider"></div>
+                      <a class="dropdown-item" href="?sort_by=price&order={% if sort_by == 'price' and order == 'asc' %}desc{% else %}desc{% endif %}">Price, High to low</a>
+                      <a class="dropdown-item" href="?sort_by=price&order={% if sort_by == 'price' and order == 'desc' %}asc{% else %}asc{% endif %}">Price, low to high</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>    
+        </div> 
+
+        {% if messages %}
+          {%for message in messages %}
+            <p style="text-align: center;">{{message}}</p>
+          {% endfor %}
+        {% endif %}
+        {% if products %}
+        {% for product in products %}
+        <a href="{% url 'single_product' product.id %}">
+        <div class="shopgrids" style="margin-bottom: 10px;">
+          <div class="shopdetails" style="display: flex;align-items:center;justify-content:center; width:250px">
+            <img src="{{product.images1.url}}" alt="" srcset="" >
+          </div>
+          <div class="productconduct">
+            <h3 style="font-family: serif;">{{product.name}}</h3>
+    
+            <div class="product-rating">
+              
+              {% if product.Category.name == "mobile phones" %}
+              <ul>
+                <li>RAM/ROM: &nbsp;{{product.description1}}</li> <!-- RAM/ROM-->
+                <li>DISPLAY: &nbsp;{{product.description2}}</li> <!-- Display-->
+                <li>CAMERA: &nbsp;{{product.description3}}</li> <!--camera-->
+                <li>BATTERY: &nbsp;{{product.description4}}</li> <!--Battery-->
+                <li>PROCESSOR: &nbsp;{{product.description5}}</li> <!--processor-->
+              </ul>
+              {% else %}
+              <ul>
+                <li>&nbsp;{{product.description1}}</li> <!-- RAM/ROM-->
+                <li>&nbsp;{{product.description2}}</li> <!-- Display-->
+                <li>&nbsp;{{product.description3}}</li> <!--camera-->
+                <li>&nbsp;{{product.description4}}</li> <!--Battery-->
+                <li>&nbsp;{{product.description5}}</li> <!--processor-->
+              </ul>
+              {% endif %}
+            </div>
+          </div>
+        </div>  
+        </a>
+        {% endfor %}
+        {% else %}
+        <br>
+        <p style="text-align: center;">There is nothing show...</p><br><br><br><br><br>
+        {% endif %}
+      </div>
+    </div>
+
+{% endblock %}

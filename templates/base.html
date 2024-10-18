@@ -1,0 +1,337 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Ecommerce</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mukta:300,400,700">
+  <link rel="stylesheet" href="{% static 'fonts/icomoon/style.css' %}">
+
+  <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+  <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}">
+  <link rel="stylesheet" href="{% static 'css/jquery-ui.css' %}">
+  <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
+  <link rel="stylesheet" href="{% static 'css/owl.theme.default.min.css' %}">
+
+
+  <link rel="stylesheet" href="{% static 'css/aos.css' %}">
+  <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+
+  <link rel="stylesheet" href="{% static 'css/form.css' %}">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <link rel="stylesheet" href="{% static 'css/search.css' %}">
+  <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+  <link rel="stylesheet" href="{% static 'css/singlePage2.css' %}">
+  <link rel="stylesheet" href="{% static 'css/category.css' %}">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+    integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+    crossorigin="anonymous" />
+
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+
+</head>
+
+<body onload="hidethis">
+  <div class="loader">
+    <div class="round"></div>
+  </div>
+  {% load socialaccount %}
+  <div class="site-wrap">
+    <div class="site-navbar py-2">
+
+      <div class="search-wrap">
+        <div class="container custom__search">
+          <a href="#" class="search-close js-search-close"><span class="icon-close2"></span></a>
+          <form action="#" method="post" class="">
+            <input type="text" class="form-control outline" placeholder="Search products..">
+          </form>
+        </div>
+      </div>
+
+      <div class="container">
+        <div class="d-flex align-items-center justify-content-between">
+          <div class="logo">
+            <div class="site-logo">
+              <a href="{% url 'home' %}" class="js-logo-clone">ShopMax</a>
+            </div>
+          </div>
+          <div class="main-nav d-none d-lg-block">
+            <nav class="site-navigation text-right text-md-center" role="navigation">
+              <ul class="site-menu js-clone-nav d-none d-lg-block">
+                <li class="active">
+                  <a href="{% url 'home' %}">Home</a>
+                </li>
+
+                <li>
+                  <a href="{% url 'shop' %}">Shop</a>
+                </li>
+                <li class="has-children">
+                  <a href="#">Category</a>
+                  <ul class="dropdown" style="z-index: 1000;">
+                    <li class="bold"><a href="{% url 'shop_category' 'mobile-phones' %}">Mobiles</a>
+                      <ul class="submenu">
+
+                        <li>Apple</li>
+                        <li>Samsung</li>
+                        <li>OnePlus</li>
+                        <li>Redmi</li>
+                      </ul>
+                    </li>
+                    <li class="bold"> <a href="{% url 'shop_category' 'laptops' %}">Laptops</a>
+                      <ul class="submenu">
+                        <li>Mac book</li>
+                        <li>HP</li>
+                        <li>Dell</li>
+                        <li>Asus</li>
+                        <li>Lenovo</li>
+                      </ul>
+                    </li>
+                    <li class="bold"> <a href="{% url 'shop_category' 'tws' %}">Tws(Ear buds)</a>
+                      <ul class="submenu">
+                        <li>Apple</li>
+                        <li>nothing</li>
+                        <li>realme</li>
+                        <li>JBL</li>
+                      </ul>
+                    </li>
+                    <li class="bold"><a href="{% url 'shop_category' 'accessories' %}">Accessories</a>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </nav>
+          </div>
+          <hr>
+          <div class="icons center-icon">
+
+            <div class="icons-btn d-inline-block search-container designme" id="">
+              <form autocomplete="off" method="POST" action="{% url 'search' %}">
+                {% csrf_token %}
+                <input type="text" name="q" id="q" onKeyUp="showResults(this.value)" class="inputsearch"
+                  style="overflow: hidden;" />
+                <div id="result"></div>
+                <span class="icon-search search-icon" type="submit"></span>
+              </form>
+
+            </div>
+            <a href="{% url 'cart_summary' %}" class="icons-btn d-inline-block bag">
+              <span class="icon-shopping-bag"></span>
+              <span class="number" id="cart_quantity">{{cart|length}}</span>
+            </a>
+
+            <!-- user profile -->
+
+            {% if user.is_authenticated %}
+            <div class="user__profile" style="display: inline-block;">
+              <div class="user__profile" style="display: inline-block;">
+                {% if user.socialaccount_set.all %}
+                <li class="nav-item dropdown">
+                  <div class="profile-pic">
+                    <img src="{{ socialaccount.extra_data.picture }}" alt="Profile Picture" class="rounded-circle"
+                      height="30" alt="profile" loading="lazy" />
+                  </div>
+                </li>
+                {% else %}
+                <span class="icon-user"></span>
+                {% endif %}
+                <ul class="shows">
+                  <li><a href="{% url 'profile' %}">Show Profile</a></li>
+                  <li><a href="{% url 'logout' %}">Logout</a></li>
+                </ul>
+              </div>
+              {% else %}
+              <a href="{% url 'login' %}" id="showform" class="show"><button class="btn btn-secondary"
+                  style="height: 35px;">Login</button></a>
+
+
+              <div class="parent">
+                <div class="login_form" id="forms" style="z-index: 1001;">
+                  <!-- Login form container -->
+                  <div class="cross">
+                    <span id="close">X</span>
+                  </div>
+                  <form action="/login/" method="POST">
+                    {% csrf_token %}
+                    <!-- Login option separator -->
+                      <h3>Login</h3>
+
+                    {% if messages %}
+                      {% for message in messages %}
+                        <p>{{message}}</p>
+                      {% endfor %}
+                    {% endif %}
+
+                    <!-- Email input box -->
+                    <div class="input_box">
+                      <label for="email">Email</label>
+                      <input type="email" id="email" name="email" placeholder="Enter email address" required />
+                    </div>
+
+                    <!-- Paswwrod input box -->
+                    <div class="input_box">
+
+                      <input type="password" id="password" name="password" placeholder="Enter your password" required />
+                      <span class="forgotpass"><a href="#">Forgot Password?</a></span>
+                    </div>
+
+                    <!-- Login button -->
+                    <button type="submit">Log In</button>
+
+                    <p class="sign_up">Don't have an account? <a href="{% url 'register' %}" >Sign
+                        up</a></p>
+
+
+                    <p class="separator">
+                      <span style="color: black;">or</span>
+                    </p>
+                    <h3>Log in with</h3>
+                    <div class="login_option">
+                      <!-- Google button -->
+                      <div class="option">
+                  
+                        <a href="{% provider_login_url 'google' %}?next=/">
+                          <img src="{% static 'logos/google.png' %}" alt="Google" />
+                          <span>Google</span>
+                        </a>
+                      </div>
+
+                      <!-- Apple button -->
+                      <div class="option">
+                        <a href="#">
+                          <img src="{% static 'logos/apple.png' %}" alt="Apple" />
+                          <span>Apple</span>
+                        </a>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+              {%endif %}
+
+              <a href="#" class="site-menu-toggle js-menu-toggle ml-3 d-inline-block d-lg-none"><span
+                  class="icon-menu"></span></a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <hr style="margin: 0.5px;">
+      <!-- main body of the web page -->
+      {% block content %}
+
+
+      {% endblock %}
+      <!-- end of main body -->
+<hr>
+      <footer class="site-footer custom-border-top" style="padding:0px;">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-3 col-lg-3 mb-3 mb-lg-0">
+              <h3 class="footer-heading mb-4">Help</h3>
+              <div class="col-md-6 col-lg-4">
+                <ul class="list-unstyled">
+                  <li><a href="#">F & Q</a></li>
+                  <li><a href="#">Order Cancellation</a></li>
+                  <li><a href="{% url 'cart_summary'%}">summary</a></li>
+                  <!-- <li><a href="#">Store builder</a></li> -->
+                 
+                    <ul class="list-unstyled " style="width:100px">
+                      <li><a href="http://localhost:8000/admin/login/?next=/admin/">Admin Login</a></li>
+  
+                    </ul>
+                  
+                </ul>
+              </div>
+            </div>
+            <div class="col-lg-5 ml-auto mb-5 mb-lg-0">
+              <div class="row">
+                <div class="col-md-12">
+                  <h3 class="footer-heading mb-4">Quick Links</h3>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                  <ul class="list-unstyled">
+                    <li><a href="#">Sell online</a></li>
+                    <li><a href="#">Features</a></li>
+                    <li><a href="{% url 'cart_summary'%}">Shopping cart</a></li>
+                    <li><a href="#">Store builder</a></li>
+                  </ul>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                  <ul class="list-unstyled">
+                    <li><a href="{% url 'shop_category' 'mobile-phones' %}">Mobile commerce</a></li>
+                    <li><a href="#">Dropshipping</a></li>
+                    <li><a href="#">Website development</a></li>
+                  </ul>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                  <ul class="list-unstyled">
+                    <li><a href="#">Point of sale</a></li>
+                    <li><a href="#">Hardware</a></li>
+                    <li><a href="#">Software</a></li>
+                  </ul>
+                </div>
+
+              </div>
+            </div>
+
+            <div class="col-md-6 col-lg-3">
+              <div class="block-5 mb-5">
+                <h3 class="footer-heading mb-4">Contact Info</h3>
+                <ul class="list-unstyled">
+                  <li class="address">1829, 2nd cross, 18th main, Jayanagar 4th T block</li>
+                  <li class="phone"><a href="tel://99164646950">9916464950</a></li>
+                  <li class="email">srikanththebillionaire@gmail.com</li>
+                </ul>
+              </div>
+
+              <div class="block-7">
+                <form action="#" method="post">
+                  <label for="email_subscribe" class="footer-heading">Subscribe</label>
+                  <div class="form-group">
+                    <input type="text" class="form-control py-4" id="email_subscribe" placeholder="Email">
+                    <input type="submit" class="btn btn-sm btn-primary" value="Send">
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <div class="row mt-5 text-center">
+            <div class="col-md-12">
+              <p>
+                Copyright &copy;
+                <script>document.write(new Date().getFullYear());</script> All rights reserved
+              </p>
+            </div>
+
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+    <script src="{% static 'js/jquery-ui.js' %}"></script>
+    <script src="{% static 'js/popper.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
+    <script src="{% static 'js/aos.js' %}"></script>
+   
+    <script src="{% static 'js/main.js' %}"></script>
+    <!-- singlePage -->
+    <script src="{% static 'js/singlePage.js' %}"></script>
+
+    <script>
+      document.getElementById('sea').addEventListener('click', () => {
+        document.getElementById('sea').classList.toggle("in-out");
+        console.log('ss')
+      })
+
+
+    </script>
+</body>
+
+</html>
