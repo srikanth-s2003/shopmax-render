@@ -46,7 +46,6 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
-    'django-allauth'
 ]
 
 SOCIALACCOUNT_PROVIDERS = {
