@@ -243,7 +243,8 @@ form button:hover {
           <!-- Google button -->
           <div class="option">
       
-            <a href="{% provider_login_url 'google' %}?next=/">
+            {% comment %} <a href="{% provider_login_url 'google' %}"> {% endcomment %}
+            <a href="/accounts/google/login/">
               <img src="{% static 'logos/google.png' %}" alt="Google" />
               <span>Google</span>
             </a>
