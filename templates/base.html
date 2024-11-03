@@ -193,10 +193,17 @@
                       <!-- Google button -->
                       <div class="option">
                   
-                        <a href="/accounts/google/login/">
+                        {% comment %} <a href="/accounts/google/login/">
                           <img src="{% static 'logos/google.png' %}" alt="Google" />
                           <span>Google</span>
-                        </a>
+                        </a> {% endcomment %}
+                        <form action="{% provider_login_url "google" %}?next=/" method="post">
+                          {% csrf_token %}
+                          <button type="submit">
+                            <img src="{% static 'logos/google.png' %}" alt="Google" />
+                            <span>Google</span>
+                          </button>
+                      </form>
                       </div>
 
                       <!-- Apple button -->

@@ -1,8 +1,8 @@
 from pathlib import Path
 import os
-from decouple import config
+# from decouple import config
 from dotenv import load_dotenv
-import dj_database_url
+# import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -12,17 +12,16 @@ load_dotenv()
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = config('SECRET_KEY', default="django-insecure-r0od)8#qrnnx61sp@9f=+fg_c(k&w!t^4*vta!3wa2posqcehe")
+SECRET_KEY = os.environ.get('SECRET_KEY', default="django-insecure-r0od)8#qrnnx61sp@9f=+fg_c(k&w!t^4*vta!3wa2posqcehe")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config('DEBUG', default=True, cast=bool)
+DEBUG = os.environ.get('DEBUG', default=True)
 
-ALLOWED_HOSTS = config(
+ALLOWED_HOSTS = os.environ.get(
     'ALLOWED_HOSTS', 
-    default='shopmax-render.onrender.com,127.0.0.1', 
-    cast=lambda v: [s.strip() for s in v.split(',')] if v else ['shopmax-render.onrender.com', '127.0.0.1']
+    default=['shopmax-render.onrender.com','127.0.0.1'], 
+    # cast=lambda v: [s.strip() for s in v.split(',')] if v else ['shopmax-render.onrender.com', '127.0.0.1']
 )
-
 
 CSRF_TRUSTED_ORIGINS = []
 # Application definition
@@ -48,23 +47,23 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google',
 ]
 
-SOCIALACCOUNT_PROVIDERS = {
-    'google': {
-        'SCOPE': [
-            'profile',
-            'email',
-        ],
-        'AUTH_PARAMS': {
-            'access_type': 'online',
-        },
-        'OAUTH_PKCE_ENABLED': True,
-        'APP': {
-            'client_id': os.environ.get('SOCIAL_AUTH_GOOGLE_OAUTH2_KEY'),
-            'secret': os.environ.get('SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET'),
-            'key': ''
-        }
-    }
-}
+# SOCIALACCOUNT_PROVIDERS = {
+#     'google': {
+#         'SCOPE': [
+#             'profile',
+#             'email',
+#         ],
+#         'AUTH_PARAMS': {
+#             'access_type': 'online',
+#         },
+#         'OAUTH_PKCE_ENABLED': True,
+#         'APP': {
+#             'client_id': os.environ.get('SOCIAL_AUTH_GOOGLE_OAUTH2_KEY'),
+#             'secret': os.environ.get('SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET'),
+#             'key': ''
+#         }
+#     }
+# }
 
 SECURE_CROSS_ORIGIN_OPENER_POLICY = "same-origin-allow-popups"
 
@@ -106,7 +105,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "ecom.wsgi.application"
 
-# Database configuration
+# Database os.environ.geturation
 
 DATABASES = {
     # "default": {
@@ -123,7 +122,7 @@ DATABASES = {
     }
 }
 
-# DATABASES["default"] = dj_database_url.parse("")
+DATABASES["default"] = dj_database_url.parse("")
 DATABASES["default"] = dj_database_url.parse(os.environ.get("Render-database"))
 
 # Password validation
@@ -159,24 +158,24 @@ AUTHENTICATION_BACKENDS = [
     'allauth.account.auth_backends.AuthenticationBackend',
 ]
 
-# Allauth configuration
+# Allauth os.environ.geturation
 LOGIN_REDIRECT_URL = '/'
 ACCOUNT_LOGOUT_REDIRECT_URL = '/'
 SOCIALACCOUNT_LOGIN_ON_GET = True
 
 # Google OAuth2 settings
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = os.environ.get('SOCIAL_AUTH_GOOGLE_OAUTH2_KEY')
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = os.environ.get('SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET')
+# SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = os.environ.get('SOCIAL_AUTH_GOOGLE_OAUTH2_KEY')
+# SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = os.environ.get('SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET')
 
 # Session management
 SESSION_COOKIE_AGE = 60 * 60 * 24 * 30  # 30 days
 SESSION_SAVE_EVERY_REQUEST = True  # Save the session to the database on every request
 SESSION_EXPIRE_AT_BROWSER_CLOSE = False
-SESSION_COOKIE_SECURE = config('SESSION_COOKIE_SECURE', default=False, cast=bool)
+SESSION_COOKIE_SECURE = os.environ.get('SESSION_COOKIE_SECURE', default=False)
 SESSION_COOKIE_HTTPONLY = True
 SESSION_COOKIE_SAMESITE = 'Lax'  # or 'Strict'
 
-# Email backend configuration
+# Email backend os.environ.geturation
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
