@@ -2,7 +2,7 @@ from pathlib import Path
 import os
 # from decouple import config
 from dotenv import load_dotenv
-import dj_database_url
+# import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -123,7 +123,7 @@ DATABASES = {
 }
 
 # DATABASES["default"] = dj_database_url.parse("")
-DATABASES["default"] = dj_database_url.parse(os.environ.get("Render-database"))
+# DATABASES["default"] = dj_database_url.parse(os.environ.get("Render-database"))
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
