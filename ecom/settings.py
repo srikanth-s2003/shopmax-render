@@ -122,7 +122,7 @@ DATABASES = {
     }
 }
 
-DATABASES["default"] = dj_database_url.parse("")
+# DATABASES["default"] = dj_database_url.parse("")
 DATABASES["default"] = dj_database_url.parse(os.environ.get("Render-database"))
 
 # Password validation
