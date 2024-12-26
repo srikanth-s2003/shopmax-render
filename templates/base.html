@@ -126,102 +126,87 @@
             <!-- user profile -->
 
             {% if user.is_authenticated %}
-            <div class="user__profile" style="display: inline-block;">
-              <div class="user__profile" style="display: inline-block;">
-                {% if user.socialaccount_set.all %}
-                <li class="nav-item dropdown">
-                  <div class="profile-pic">
-                    <img src="{{ socialaccount.extra_data.picture }}" alt="Profile Picture" class="rounded-circle"
-                      height="30" alt="profile" loading="lazy" />
-                  </div>
-                </li>
-                {% else %}
-                <span class="icon-user"></span>
-                {% endif %}
-                <ul class="shows">
-                  <li><a href="{% url 'profile' %}">Show Profile</a></li>
-                  <li><a href="{% url 'logout' %}">Logout</a></li>
-                </ul>
-              </div>
-              {% else %}
-              <a href="{% url 'login' %}" id="showform" class="show"><button class="btn btn-secondary"
-                  style="height: 35px;">Login</button></a>
+<div class="user__profile">
+  {% with user.socialaccount_set.first.extra_data.picture as profile_pic %}
+    {% if profile_pic %}
+      <li class="nav-item dropdown">
+        <div class="profile-pic">
+          <img src="{{ profile_pic }}" alt="Profile Picture" class="rounded-circle" height="30" loading="lazy" />
+        </div>
+      </li>
+    {% else %}
+      <span class="icon-user"></span>
+    {% endif %}
+  {% endwith %}
+  <ul class="shows">
+    <li><a href="{% url 'profile' %}">Show Profile</a></li>
+    <li><a href="{% url 'logout' %}">Logout</a></li>
+  </ul>
+</div>
+{% else %}
+<a href="{% url 'login' %}" id="showform" class="show">
+  <button class="btn btn-secondary" style="height: 35px;">Login</button>
+</a>
 
+<div class="parent">
+  <div class="login_form" id="forms">
+    <div class="cross">
+      <span id="close">X</span>
+    </div>
+    <form action="/login/" method="POST">
+      {% csrf_token %}
+      <h3>Login</h3>
 
-              <div class="parent">
-                <div class="login_form" id="forms" style="z-index: 1001;">
-                  <!-- Login form container -->
-                  <div class="cross">
-                    <span id="close">X</span>
-                  </div>
-                  <form action="/login/" method="POST">
-                    {% csrf_token %}
-                    <!-- Login option separator -->
-                      <h3>Login</h3>
+      {% if messages %}
+        {% for message in messages %}
+          <p>{{ message }}</p>
+        {% endfor %}
+      {% endif %}
 
-                    {% if messages %}
-                      {% for message in messages %}
-                        <p>{{message}}</p>
-                      {% endfor %}
-                    {% endif %}
+      <div class="input_box">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" placeholder="Enter email address" required />
+      </div>
 
-                    <!-- Email input box -->
-                    <div class="input_box">
-                      <label for="email">Email</label>
-                      <input type="email" id="email" name="email" placeholder="Enter email address" required />
-                    </div>
+      <div class="input_box">
+        <input type="password" id="password" name="password" placeholder="Enter your password" required />
+        <span class="forgotpass"><a href="#">Forgot Password?</a></span>
+      </div>
 
-                    <!-- Paswwrod input box -->
-                    <div class="input_box">
+      <button type="submit">Log In</button>
 
-                      <input type="password" id="password" name="password" placeholder="Enter your password" required />
-                      <span class="forgotpass"><a href="#">Forgot Password?</a></span>
-                    </div>
+      <p class="sign_up">Don't have an account? <a href="{% url 'register' %}">Sign up</a></p>
 
-                    <!-- Login button -->
-                    <button type="submit">Log In</button>
+      <p class="separator">
+        <span style="color: black;">or</span>
+      </p>
+      <h3>Log in with</h3>
+      <div class="login_option">
+        <div class="option">
+          <form action="{% provider_login_url 'google' %}?next=/" method="post">
+            {% csrf_token %}
+            <button type="submit">
+              <img src="{% static 'logos/google.png' %}" alt="Google" />
+              <span>Google</span>
+            </button>
+          </form>
+        </div>
+        <!-- Placeholder for Apple Login -->
+        <div class="option">
+          <a href="#">
+            <img src="{% static 'logos/apple.png' %}" alt="Apple" />
+            <span>Apple</span>
+          </a>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+{% endif %}
+<a href="#" class="site-menu-toggle js-menu-toggle ml-3 d-inline-block d-lg-none">
+  <span class="icon-menu"></span>
+</a>
 
-                    <p class="sign_up">Don't have an account? <a href="{% url 'register' %}" >Sign
-                        up</a></p>
-
-
-                    <p class="separator">
-                      <span style="color: black;">or</span>
-                    </p>
-                    <h3>Log in with</h3>
-                    <div class="login_option">
-                      <!-- Google button -->
-                      <div class="option">
-                  
-                        {% comment %} <a href="/accounts/google/login/">
-                          <img src="{% static 'logos/google.png' %}" alt="Google" />
-                          <span>Google</span>
-                        </a> {% endcomment %}
-                        <form action="{% provider_login_url "google" %}?next=/" method="post">
-                          {% csrf_token %}
-                          <button type="submit">
-                            <img src="{% static 'logos/google.png' %}" alt="Google" />
-                            <span>Google</span>
-                          </button>
-                      </form>
-                      </div>
-
-                      <!-- Apple button -->
-                      <div class="option">
-                        <a href="#">
-                          <img src="{% static 'logos/apple.png' %}" alt="Apple" />
-                          <span>Apple</span>
-                        </a>
-                      </div>
-                    </div>
-                  </form>
-                </div>
-              </div>
-              {%endif %}
-
-              <a href="#" class="site-menu-toggle js-menu-toggle ml-3 d-inline-block d-lg-none"><span
-                  class="icon-menu"></span></a>
-            </div>
           </div>
         </div>
       </div>

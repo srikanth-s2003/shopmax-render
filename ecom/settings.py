@@ -162,6 +162,8 @@ AUTHENTICATION_BACKENDS = [
 LOGIN_REDIRECT_URL = '/'
 ACCOUNT_LOGOUT_REDIRECT_URL = '/'
 SOCIALACCOUNT_LOGIN_ON_GET = True
+SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = ['email']
+
 
 # Google OAuth2 settings
 # SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = os.environ.get('SOCIAL_AUTH_GOOGLE_OAUTH2_KEY')
@@ -180,6 +182,12 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
-EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
+EMAIL_HOST_USER = "srikanthshankar080@gmail.com"
+EMAIL_HOST_PASSWORD = "ppae rbqb irrt mtar"
 EMAIL_USE_SSL = False
+
+# Looking to send emails in production? Check out our Email API/SMTP product!
+# EMAIL_HOST = 'sandbox.smtp.mailtrap.io'
+# EMAIL_HOST_USER = 'fc2b5bc1a85b0c'
+# EMAIL_HOST_PASSWORD = '510260aee0cb2a'
+# EMAIL_PORT = '2525'

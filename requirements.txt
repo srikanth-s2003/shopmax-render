@@ -25,3 +25,4 @@ sqlparse==0.5.0
 urllib3==2.2.1
 whitenoise==6.7.0
 dj-database-url==2.2.0
+uuid==1.30
