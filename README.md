@@ -1,6 +1,6 @@
-# ShopMax: A Fashion E-Commerce Platform
+# ShopMax: E-Commerce Platform
 
-ShopMax is a user-friendly and responsive e-commerce platform built using **Django**. It allows users to browse, search, and manage a cart of fashion products seamlessly.
+ShopMax is a user-friendly and responsive e-commerce platform built using **Django**. It allows users to browse, search, and manage a cart of electronic products seamlessly.
 
 ## Live Demo
 The project is live and accessible at: [ShopMax on Render](https://shopmax-render.onrender.com/)
