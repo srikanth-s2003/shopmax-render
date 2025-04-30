@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 
 
 # Register your models here.
-admin.site.register(models.Customer)
+# admin.site.register(models.Customer)
 admin.site.register(models.Category)
 admin.site.register(models.Product)
 # admin.site.register(models.Picture)

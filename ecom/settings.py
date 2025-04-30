@@ -19,7 +19,7 @@ DEBUG = os.environ.get('DEBUG', default=True)
 
 ALLOWED_HOSTS = os.environ.get(
     'ALLOWED_HOSTS', 
-    default=['shopmax-render.onrender.com','127.0.0.1'], 
+    default=['shopmax-render.onrender.com','127.0.0.1', 'localhost'], 
     # cast=lambda v: [s.strip() for s in v.split(',')] if v else ['shopmax-render.onrender.com', '127.0.0.1']
 )
 
@@ -64,6 +64,20 @@ INSTALLED_APPS = [
 #         }
 #     }
 # }
+
+# SOCIALACCOUNT_PROVIDERS = {
+#     'google': {
+#         'SCOPE': ['profile', 'email'],  # Requesting the email scope explicitly
+#         'AUTH_PARAMS': {'access_type': 'online'},
+#         'OAUTH_PKCE_ENABLED': True,
+#         'APP': {
+#             'client_id': os.environ.get('SOCIAL_AUTH_GOOGLE_OAUTH2_KEY'),
+#             'secret': os.environ.get('SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET'),
+#             'key': ''
+#         }
+#     }
+# }
+
 
 SECURE_CROSS_ORIGIN_OPENER_POLICY = "same-origin-allow-popups"
 
@@ -143,7 +157,9 @@ USE_TZ = True
 STATIC_URL = "static/"
 STATICFILES_DIRS = [BASE_DIR / 'static']
 # whitenoise
-STATICFILES_STORAGE = 'whitenoise.storage.ManifestStaticFilesStorage'
+# STATICFILES_STORAGE = 'whitenoise.storage.ManifestStaticFilesStorage'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
 STATIC_ROOT = BASE_DIR/'staticfiles'
 # Media files
 MEDIA_URL = "media/"
@@ -182,12 +198,6 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
-EMAIL_HOST_USER = "srikanthshankar080@gmail.com"
-EMAIL_HOST_PASSWORD = "ppae rbqb irrt mtar"
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD =os.environ.get('EMAIL_HOST_PASSWORD')
 EMAIL_USE_SSL = False
-
-# Looking to send emails in production? Check out our Email API/SMTP product!
-# EMAIL_HOST = 'sandbox.smtp.mailtrap.io'
-# EMAIL_HOST_USER = 'fc2b5bc1a85b0c'
-# EMAIL_HOST_PASSWORD = '510260aee0cb2a'
-# EMAIL_PORT = '2525'

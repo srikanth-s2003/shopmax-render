@@ -9,6 +9,7 @@ from django.template.loader import render_to_string
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 import uuid
+from main.models import Order
 
 @login_required
 def summary(request):
@@ -66,21 +67,35 @@ def checkout(request):
         "total": total
     })
 
+# @login_required
+
+
 @login_required
 def thankyou(request):
     cart = Cart(request)
-    cart_products = cart.get_prods
+    cart_products = cart.get_prods()
     subtotal = cart.cart_total()
-    total = subtotal  # Apply coupon discount logic if needed
+    total = subtotal
     order_number = uuid.uuid4().hex[:10].upper()
 
     subject = 'ORDER CONFIRMED'
     email_from = settings.EMAIL_HOST_USER
-    recipient_list = ["nimalashankar080@gmail.com"]
+    recipient_list = [request.user.email]  # send to the logged-in user
 
+    # Save orders to DB
 
-    print(email_from, recipient_list, "------------------")
+    for item in cart_products:
+        Order.objects.create(
+            product=item,
+            customer=request.user,
+            quantity=1,  # Change if your cart tracks quantity
+            address="Default Address",  # Replace with actual address if available
+            phone="0000000000",         # Optional: add a profile model if you want phone info
+            email=request.user.email,
+            status=False
+        )
 
+    # Send email
     message = render_to_string('email.html', {
         'name': request.user.username,
         'products': cart_products,
@@ -92,16 +107,18 @@ def thankyou(request):
     try:
         email = EmailMessage(subject, message, email_from, recipient_list)
         email.content_subtype = 'html'
-        email.fail_silently = False
-        email.send()
+        email.send(fail_silently=False)
         print("Email sent successfully.")
     except Exception as e:
         print(f"Failed to send email: {e}")
+
+    cart.clear()  # Clear cart after order
 
     return render(request, 'thankyou.html', {
         'order_number': order_number,
         'total': total
     })
+
 
 # import smtplib
 # from email.mime.text import MIMEText

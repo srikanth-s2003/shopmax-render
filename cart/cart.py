@@ -15,6 +15,11 @@ class Cart:
 
         self.cart = cart 
 
+    def clear(self):
+        self.session['cart'] = {}
+        self.session.modified = True
+
+
     def db_add(self, product):
         product_id = str(product)
         # product_qty = int(product)
@@ -27,12 +32,11 @@ class Cart:
         self.session.modified = True
 
         if self.request.user.is_authenticated:
-            print(self.request.user.id)
             current_user = Profile.objects.filter(user__id=self.request.user.id)
             carty = str(self.cart)
             carty = carty.replace("\'", "\"")
             current_user.update(old_cart=str(carty))
-            print(carty)
+            
 
         
     def add(self, product):
@@ -47,12 +51,12 @@ class Cart:
         self.session.modified = True
 
         if self.request.user.is_authenticated:
-            print(self.request.user.id)
+            
             current_user = Profile.objects.filter(user__id=self.request.user.id)
             carty = str(self.cart)
             carty = carty.replace("\'", "\"")
             current_user.update(old_cart=str(carty))
-            print(carty)
+            
     
 
     def cart_total(self):
@@ -63,7 +67,7 @@ class Cart:
 
         total = 0
         for key in quantities.keys():
-            print(key)
+            
             key = int(key)
             for product in products:
                 if product.id == key:
@@ -93,6 +97,6 @@ class Cart:
     
     def get_prods(self):
         product_ids = self.cart.keys()
-        print(product_ids)
+        
         products = Product.objects.filter(id__in=product_ids)
         return products
