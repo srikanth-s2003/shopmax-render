@@ -39,7 +39,13 @@ INSTALLED_APPS = [
     'cart',
     'whitenoise.runserver_nostatic',
 
+
+    'django.contrib.sitemaps',
+
     # Google Authentication
+
+
+
     'django.contrib.sites',
     'allauth',
     'allauth.account',
