@@ -25,7 +25,7 @@ ALLOWED_HOSTS = os.environ.get(
 
 CSRF_TRUSTED_ORIGINS = []
 # Application definition
-SITE_ID = 2
+SITE_ID = 3
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -133,17 +133,25 @@ DATABASES = {
     #     "NAME": BASE_DIR / "db.sqlite3",
     # }
         'default': {
+            # 'ENGINE': 'django.db.backends.postgresql',
+            # 'NAME': 'railway',
+            # 'USER' : 'postgres',
+            # 'PASSWORD' : os.environ.get('POSTGRES_PASSWORD'),
+            # 'HOST' : 'roundhouse.proxy.rlwy.net',
+            # 'PORT' : '52417', 
+
             'ENGINE': 'django.db.backends.postgresql',
-            'NAME': 'railway',
+            'NAME': 'postgres',
             'USER' : 'postgres',
             'PASSWORD' : os.environ.get('POSTGRES_PASSWORD'),
-            'HOST' : 'roundhouse.proxy.rlwy.net',
-            'PORT' : '52417', 
+            
+            'HOST' : 'db.qeqbbozzesguzpgngxyq.supabase.co',
+            'PORT' : '5432', 
     }
 }
 
 # DATABASES["default"] = dj_database_url.parse("")
-DATABASES["default"] = dj_database_url.parse(os.environ.get("Render-database"))
+DATABASES["default"] = dj_database_url.parse(os.environ.get("Supabase-database"))
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [

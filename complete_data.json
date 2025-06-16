@@ -1,0 +1,310 @@
+[
+    {
+        "model": "main.category",
+        "pk": 1,
+        "fields": {
+            "name": "Smartphones"
+        }
+    },
+    {
+        "model": "main.category",
+        "pk": 2,
+        "fields": {
+            "name": "Audio"
+        }
+    },
+    {
+        "model": "main.category",
+        "pk": 3,
+        "fields": {
+            "name": "Laptops"
+        }
+    },
+    {
+        "model": "main.category",
+        "pk": 4,
+        "fields": {
+            "name": "Accessories"
+        }
+    },
+    {
+        "model": "main.product",
+        "pk": 4,
+        "fields": {
+            "name": "Oneplus 10 pro",
+            "mrp": "100000.00",
+            "price": "80000.00",
+            "Category": 1,
+            "description1": "8GB/126GB",
+            "description2": "6.7-inch Fluid AMOLED  curved display",
+            "description3": "50MP Triple Rear Camera and 32MP Front Selfie Camera",
+            "description4": "Li-Po 5000mAh non-removable 80W SuperVOOC fast charging battery capacity.",
+            "description5": "Snapdragon 888",
+            "mainDescription": "Buy OnePlus 10 Pro 5G online price in India. The OnePlus 10 Pro 5G  has a 6.7-inch Fluid AMOLED  curved display. OnePlus 10 Pro 5G has 8GB RAM |128GB ROM storage with Android 12, OxygenOS 12.1. The OnePlus 10 Pro 5G has a 50MP Triple Rear Camera and 32MP Front Selfie Camera with a Li-Po 5000mAh non-removable 80W SuperVOOC fast charging battery capacity. The OnePlus 10 Pro 5G has a two-color Emerald Forest, and Volcanic Black two-color option available. OnePlus 10 Pro 5G is an excellent option for users who are looking for a fancy and luxury smartphone. The Oneplus smartphones are high-quality at a sales price. The smartphone comes with excellent performance at a budget-friendly price.",
+            "images1": "products/OnePlus-10-Pro-Now-Available_e72f179a-8d2a-4b63-9950-740818901db3.webp",
+            "images2": "products/-original-imagdhvtgagx4mgj.webp",
+            "images3": "products/-original-imagdhvtghcpqb6g.webp",
+            "images4": "products/-original-imagdhvtjkha293f.jpeg"
+        }
+    },
+    {
+        "model": "main.product",
+        "pk": 5,
+        "fields": {
+            "name": "Iphone 15",
+            "mrp": "79990.00",
+            "price": "71900.00",
+            "Category": 1,
+            "description1": "126",
+            "description2": "Super Retina XDR 15.54cm/6.1",
+            "description3": "12",
+            "description4": "5000",
+            "description5": "A15",
+            "mainDescription": "Super Retina XDR display15.54 cm / 6.1″ (diagonal)all‑screen OLED display2556x1179-pixel resolution at 460 ppiThe iPhone 15 display has rounded corners that follows a beautiful curved design, and these corners are within a standard rectangle. When measured as a standard rectangular shape, the screen is 15.54 cm (6.12″) diagonally (actual viewable area is less).",
+            "images1": "products/-original-imagtc6fhhtqjnr9.jpeg",
+            "images2": "products/WhatsApp_Image_2024-07-06_at_15.04.48.jpeg",
+            "images3": "products/WhatsApp_Image_2024-07-06_at_15.04.50.jpeg",
+            "images4": "products/WhatsApp_Image_2024-07-06_at_15.04.50_1.jpeg"
+        }
+    },
+    {
+        "model": "main.product",
+        "pk": 6,
+        "fields": {
+            "name": "Samsung S24 Ultra 5G",
+            "mrp": "144999.00",
+            "price": "139999.00",
+            "Category": 1,
+            "description1": "12 GB RAM | 512 GB ROM",
+            "description2": "17.27 cm (6.8 inch) Quad HD+ Display",
+            "description3": "200MP + 50MP + 12MP + 10MP | 12MP Front Camera",
+            "description4": "5000 mAh Battery",
+            "description5": "Snapdragon 8 Gen 3 Processor",
+            "mainDescription": "Behold the Samsung Galaxy S24 Ultra smartphone, an exceptional amalgamation of incredible technology and superior sophistication. Whether you're typing up a storm or jotting something down, Note Assist makes a long story short. New AI-powered editing options let you get the photo you want, like relocating objects and intelligently filling in the space they left behind. With a durable shield of titanium built right into the frame and better scratch resistance with Corning Gorilla Armor, your IP68 water and dust-resistant Galaxy S24 Ultra is ready for adventure. Write, tap, and navigate with the precision your fingers wish they had on the new, flat display.",
+            "images1": "products/-original-imahfu766ybd5h4z.webp",
+            "images2": "products/-original-imagx9eghmmcbpup.webp",
+            "images3": "products/-original-imagx9pf7dd5ny7n.webp",
+            "images4": "products/-original-imagx9pfuguwhfhe.webp"
+        }
+    },
+    {
+        "model": "main.product",
+        "pk": 7,
+        "fields": {
+            "name": "Apple iPhone 15 Pro Max",
+            "mrp": "159900.00",
+            "price": "139990.00",
+            "Category": 1,
+            "description1": "256 GB ROM",
+            "description2": "17.02 cm (6.7 inch) Super Retina XDR Display",
+            "description3": "48MP + 12MP + 12MP | 12MP Front Camera",
+            "description4": "4441mAh",
+            "description5": "A17 Pro Chip, 6 Core Processor Processor",
+            "mainDescription": "iPhone 15 Pro Max, a titanium marvel, boasts an aerospace-grade build, making it the lightest Pro model ever. The A17 Pro Chip marks a historic leap in Apple GPUs, delivering unparalleled graphics performance and immersive gaming experiences. The camera system shines with a 48 MP Main camera, offering remarkable detail and automatic portrait enhancements. Convenience is key with the Action button for quick tasks and Focus filters. Plus, it's USB 3 compatible, revolutionizing data transfer speeds. This iPhone even shares its charging cable with your Mac or iPad. Embrace innovation, cut cable clutter, and elevate your mobile experience with the iPhone 15 Pro Max.",
+            "images1": "products/-original-imagtc3k6zztrhnb.webp",
+            "images2": "products/-original-imagtc3kfrghczmq.webp",
+            "images3": "products/-original-imagtc3kugbc22hu.webp",
+            "images4": "products/-original-imagtc3kkzh3yf2x.webp"
+        }
+    },
+    {
+        "model": "main.product",
+        "pk": 9,
+        "fields": {
+            "name": "Nothing Phone (2a) 5G",
+            "mrp": "27999.00",
+            "price": "25999.00",
+            "Category": 1,
+            "description1": "8 GB RAM | 256 GB ROM",
+            "description2": "17.02 cm (6.7 inch) Full HD+ Display",
+            "description3": "50MP (OIS) + 50MP | 32MP Front Camera",
+            "description4": "5000 mAh Battery",
+            "description5": "Dimensity 7200 Pro Processor",
+            "mainDescription": "Phone (2a) is fuelled by the custom Dimesity 7200 Pro chipset. Co-engineered between Nothing and MediaTek to deliver the best performance with optimal power consumption. Do more whilst using less thanks to game-changing efficiency from the 8-core 4nm TSMC 2nd Generation process, with clocking speeds of up to 2.8 GHz for multi-tasking to the max. Plus get up to 20 GB RAM with 8 GB RAM Booster.",
+            "images1": "products/-original-imagz7f9hzrahd2z.webp",
+            "images2": "products/-original-imagz7f99kwfqcrd.webp",
+            "images3": "products/-original-imagz7f9qrr58nt8.webp",
+            "images4": "products/-original-imagz7f9mjtnhswa.webp"
+        }
+    },
+    {
+        "model": "main.product",
+        "pk": 10,
+        "fields": {
+            "name": "OnePlus 11R 5G",
+            "mrp": "44999.00",
+            "price": "38990.00",
+            "Category": 1,
+            "description1": "16 GB RAM | 256 GB ROM",
+            "description2": "17.02 cm (6.7 inch) Display",
+            "description3": "50MP Rear Camera",
+            "description4": "5000 mAh Battery",
+            "description5": "Snapdragon 8+ Gen 1",
+            "mainDescription": "Camera: Sensor: 50MP Main Camera with Sony IMX890 (OIS supported), 8MP Ultrawide Camera (FOV: 120 degree) and Macro Lens; 16MP Front (Selfie) Camera with EIS support.\r\nCamera Modes: Nightscape, Ultra HDR, Smart Scene Recognition, Portrait Mode, Pro Mode, Panorama, Tilt-Shift mode, Long Exposure, Dual-View Video, Retouch, Movie Mode, Raw file, Filters, Super Stable, Video Nightscape, Video HDR, Video Portrait, Focus Tracking, Timelapse, Macro mode\r\nDisplay: 6.7 Inches; 120 Hz Super Fluid AMOLED; Resolution: 2772 X 1240 pixels ,450 ppi, 20.1:9, 10-bit Color Depth, HDR10+\r\nOperating System: OxygenOS based on Android 13\r\nProcessor: Snapdragon 8+ Gen 1 Mobile Platform",
+            "images1": "products/11r-5g-5011102525-oneplus-original-imagn3afeqfr6acy.webp",
+            "images2": "products/11r-5g-5011102525-oneplus-original-imagn3afr52an2eq.webp",
+            "images3": "products/11r-5g-5011102525-oneplus-original-imagn3afdzrxkjf2.webp",
+            "images4": "products/11r-5g-5011102525-oneplus-original-imagn3afhvqpgbgg.webp"
+        }
+    },
+    {
+        "model": "main.product",
+        "pk": 11,
+        "fields": {
+            "name": "Apple AirPods Pro (2nd generation)",
+            "mrp": "24900.00",
+            "price": "23990.00",
+            "Category": 2,
+            "description1": "With Mic:Yes",
+            "description2": "Apple-designed H2 chip, the force behind AirPods Pro, pushes advanced audio performance even further",
+            "description3": "Low-distortion, custom-built driver and amplifier deliver crisp",
+            "description4": "clear high notes and deep, rich bass in stunning definition.",
+            "description5": "Up to 2x more Active Noise Cancellation than the previous-generation AirPods Pro, so you,ll hear dra",
+            "mainDescription": "AirPods Pro (2nd generation) with USB-C deliver up to 2x more Active Noise Cancellation than the previous generation, with Transparency mode that enables you to hear the world around you, and all-new Adaptive Audio that dynamically tailors noise control to your environment. Conversation Awareness helps lower media volume and enhance the voices in front of you while you're interacting with others. A single charge delivers up to 6 hours of battery life. And Touch control lets you easily adjust volume with a swipe. The MagSafe Charging Case is a marvel on its own with Precision Finding, built-in speaker and lanyard loop.",
+            "images1": "products/-original-imagtc44nk4b3hfg.webp",
+            "images2": "products/-original-imagtc44zcupzhqh.webp",
+            "images3": "products/-original-imagtcfghamt7x4z.webp",
+            "images4": "products/-original-imagtdqgnhzehtgm.webp"
+        }
+    },
+    {
+        "model": "main.product",
+        "pk": 12,
+        "fields": {
+            "name": "Apple 2020 Macbook Air Apple M1",
+            "mrp": "89900.00",
+            "price": "71990.00",
+            "Category": 3,
+            "description1": "8 GB/SSD/256 GB SSD",
+            "description2": "13.3 inch Quad LED Backlit IPS Display (227 PPI, 400 nits Brightness, Wide Colour (P3), True Tone Te",
+            "description3": "720p FaceTime HD Webcam",
+            "description4": "Upto 15 Hours",
+            "description5": "M1",
+            "mainDescription": "This Apple Macbook is powered by the Apple M1 chip and is easily portable so that you can carry it with you anywhere you want. This thin and light notebook is equipped with an 8-core CPU to handle all your tasks more efficiently. The 8-core GPU of this notebook takes graphic-intensive games and apps to a whole new level. It also comes with a 16-core Neural Engine to do machine learning tasks more effectively. Its fan-less design offers silent operations and has a long-lasting battery life which can last up to 18 hours on a single charge.",
+            "images1": "products/apple-macbook-air-m1-13-3-inch-lightwings-original-imag3gh5xftgbpg3.webp",
+            "images2": "products/na-thin-and-light-laptop-apple-original-imag5jt7zpmhsrpm.webp",
+            "images3": "products/na-thin-and-light-laptop-apple-original-imag5jt7fx4gfun4.webp",
+            "images4": "products/na-thin-and-light-laptop-apple-original-imag5jt7khzzmh4w.webp"
+        }
+    },
+    {
+        "model": "main.product",
+        "pk": 13,
+        "fields": {
+            "name": "Apple 2023 Macbook Air Apple M2",
+            "mrp": "144990.00",
+            "price": "141390.00",
+            "Category": 3,
+            "description1": "8 GB/SSD/512 GB SSD",
+            "description2": "15.3 Inch Liquid Retina display, LED-backlit display with IPS technology, 500 nits brightness, Wide",
+            "description3": "1080p FaceTime HD camera",
+            "description4": "66.5 Watt Hour Lithium Polymer Battery",
+            "description5": "M2",
+            "mainDescription": "STRIKINGLY THIN DESIGN – The redesigned MacBook Air is more portable than ever and weighs just 1.24 kg (2.7 pounds). It's the ultra-capable laptop that lets you work, play or create just about anything — anywhere.\r\nSUPERCHARGED BY M2 – Get more done faster with a next-generation 8-core CPU, up to 10-core GPU and up to 24GB of unified memory.\r\nUP TO 18 HOURS OF BATTERY LIFE – Go all day and into the night, thanks to the power-efficient performance of the Apple M2 chip.\r\nBIG, BEAUTIFUL DISPLAY – The 34.46-centimetre (13.6-inch) Liquid Retina display features over 500 nits of brightness, P3 wide colour and support for one billion colours for vibrant images and incredible detail.",
+            "images1": "products/macbook-air-thin-and-light-laptop-apple-original-imagqaphwbzpgjzr.webp",
+            "images2": "products/macbook-air-thin-and-light-laptop-apple-original-imagqapkkyvrxfqp.webp",
+            "images3": "products/macbook-air-thin-and-light-laptop-apple-original-imagqaphyqhzcvfe.webp",
+            "images4": "products/macbook-air-thin-and-light-laptop-apple-original-imagqaph4whnmeq4.webp"
+        }
+    },
+    {
+        "model": "main.product",
+        "pk": 14,
+        "fields": {
+            "name": "Apple 2023 MacBook Pro",
+            "mrp": "169900.00",
+            "price": "159790.00",
+            "Category": 3,
+            "description1": "8 GB/SSD/512 GB SSD",
+            "description2": "XDR (Extreme Dynamic Range)",
+            "description3": "1080p FaceTime HD camera",
+            "description4": "Upto 22 Hours",
+            "description5": "M3",
+            "mainDescription": "Apple M3 chip\r\nM3 brings serious speed and capability to blaze through everyday activities, multitask across apps and video calls, and handle elaborate content in pro apps and games\r\n\r\nRun multiple apps, speed through thousands of photos\r\nEffortlessly edit 4K video\r\nConfigure with up to 24GB unified memory\r\nSupports one external display",
+            "images1": "products/-original-imaguw3hswqadydy.webp",
+            "images2": "products/-original-imaguw3hupbpsr3g.webp",
+            "images3": "products/-original-imaguw3hanhja4wu.webp",
+            "images4": "products/-original-imaguw3hznfjz2dx.webp"
+        }
+    },
+    {
+        "model": "main.product",
+        "pk": 15,
+        "fields": {
+            "name": "Apple 96 W Multiport Mobile Charger with Detachable Cable  (White)",
+            "mrp": "7500.00",
+            "price": "7500.00",
+            "Category": 4,
+            "description1": "1 USB C Power Adapter",
+            "description2": "Type C",
+            "description3": "With Dual USB Ports",
+            "description4": "apple 95W",
+            "description5": "Wall Charger",
+            "mainDescription": "Apple charger\r\nApple 96 W Multiport Mobile Charger with Detachable Cable  (White)",
+            "images1": "products/mx0j2hn-a-apple-original-imagnqguhgdthhgx.webp",
+            "images2": "products/mx0j2hn-a-apple-original-imagnqguahp2ggvr.webp",
+            "images3": "products/mx0j2hn-a-apple-original-imagnqgu7fgywft3.webp",
+            "images4": "products/mx0j2hn-a-apple-original-imagnqguhgdthhgx_2bes1PB.webp"
+        }
+    },
+    {
+        "model": "main.product",
+        "pk": 16,
+        "fields": {
+            "name": "realme Buds T110",
+            "mrp": "2999.00",
+            "price": "1499.00",
+            "Category": 2,
+            "description1": "With Mic:Yes",
+            "description2": "Bluetooth version: 5.4",
+            "description3": "Battery life: 38 hrs",
+            "description4": "10mm Dynamic Bass Driver",
+            "description5": "38 Hours Total Playback Fast Charge(10 mins Charge for 120 Mins Playback) Deep Bass with Volume Boos",
+            "mainDescription": "Introducing the realme Buds T110, designed to provide an immersive music and gaming experience,with 10 MM Dynamic Boost Drivers to deliver powerful and dynamic sound to enhance your listening experience & low latency of 88ms for smooth and lag-free audio while gaming or watching videos.Equipped with The Environmental Noise Cancellation (ENC) feature helps in reducing background noise during calls, ensuring clearer and better call quality, Bluetooth version 5.4 ensures stable and reliable connectivity with your devices. The IPX5 rating makes the realme Buds T110 resistant to water and sweat, making them suitable for workouts and outdoor activities. Super Fast 10 Min Charge for 120 Min Play Time: With just a 10-minute charge, you can enjoy up to 120 minutes of playback time, ensuring you have music whenever you need it. Together all these features make the realme Buds T110 a great choice for those looking for a versatile and high-performance pair of earbuds for both music and gaming",
+            "images1": "products/-original-imahy3uqdmgx6qey.webp",
+            "images2": "products/-original-imahyhdhygfugcpc.webp",
+            "images3": "products/-original-imahyhdhnqbrqrdr.webp",
+            "images4": "products/-original-imahy3uq8jjfc3yf.webp"
+        }
+    },
+    {
+        "model": "main.product",
+        "pk": 17,
+        "fields": {
+            "name": "NIKON AF-S NIKKOR",
+            "mrp": "18000.00",
+            "price": "14990.00",
+            "Category": 4,
+            "description1": "Lens Mount: AF-S",
+            "description2": "Designed For: D3500,D5600,D7500,D850,D750,D780",
+            "description3": "Focal Length: 90 mm",
+            "description4": "Lens Type: Standard",
+            "description5": "Suitable For: Journalism",
+            "mainDescription": "The AF-S NIKKOR 50mm f/1.8G with a field of view that approximates the human eye excels at portraiture, travel, landscapes, event photography and more. This prime lens features innovative optical elements and a wide f/1.8 aperture for lifelike images, smooth background defocusing and superior low-light performance. Compact and lightweight, this lens is the ideal travel companion.",
+            "images1": "products/nikon-standard-af-s-nikkor-50mm-f-1-8g-original-imady4t42jpv9tvt.webp",
+            "images2": "products/nikon-standard-af-s-nikkor-50mm-f-1-8g-original-imady4t4vdstysyp.webp",
+            "images3": "products/nikon-standard-af-s-nikkor-50mm-f-1-8g-original-imady4t4kraujzaf.webp",
+            "images4": "products/What-is-Wildlife-Photography.webp"
+        }
+    },
+    {
+        "model": "main.product",
+        "pk": 18,
+        "fields": {
+            "name": "Nothing CMF",
+            "mrp": "20000.00",
+            "price": "15000.00",
+            "Category": 1,
+            "description1": "8GB",
+            "description2": "AMOLEE",
+            "description3": "50MP 48MP",
+            "description4": "500mah",
+            "description5": "snapdragon 888",
+            "mainDescription": "Nothing CMF is a new Mobile phone launching on 8 July 2024",
+            "images1": "products/-original-imagx9pfuguwhfhe_tA4iKpg.webp",
+            "images2": "products/-original-imahfu766ybd5h4z_XzsPkyE.webp",
+            "images3": "products/-original-imagx9pf7dd5ny7n_QlHVpJk.webp",
+            "images4": "products/-original-imagx9egkfqux8qh.webp"
+        }
+    }
+]
