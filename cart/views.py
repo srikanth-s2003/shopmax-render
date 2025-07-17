@@ -10,6 +10,7 @@ from django.conf import settings
 from django.contrib.auth.decorators import login_required
 import uuid
 from main.models import Order
+from main.models import OrderItem
 
 @login_required
 def summary(request):
@@ -82,17 +83,16 @@ def thankyou(request):
     email_from = settings.EMAIL_HOST_USER
     recipient_list = [request.user.email]  # send to the logged-in user
 
-    # Save orders to DB
-
+    # Create orders for each product in cart
     for item in cart_products:
         Order.objects.create(
-            product=item,
             customer=request.user,
-            quantity=1,  # Change if your cart tracks quantity
             address="Default Address",  # Replace with actual address if available
-            phone="0000000000",         # Optional: add a profile model if you want phone info
+            phone="0000000000",        # Optional: add a profile model if you want phone info
             email=request.user.email,
-            status=False
+            status=False,  # False means pending, True means completed
+            product=item,
+            quantity=1  # Change if your cart tracks quantity
         )
 
     # Send email

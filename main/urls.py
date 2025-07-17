@@ -9,10 +9,10 @@ urlpatterns = [
     path('shop/', views.shop, name="shop"),
     path('shop/<str:ctr>/', views.shop_category, name="shop_category"),
     path('search/', views.search, name="search"),
+    path('search/ajax/', views.search_ajax, name="search_ajax"),
     path('product/<int:id>', views.single, name="single_product"),
     path('login_user/', views.user_login, name='login'),
     path('logout/', views.logout_user, name='logout'),
     path('register/', views.register_user, name='register'),
     path('profile/', views.profile, name='profile'),
-
 ]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

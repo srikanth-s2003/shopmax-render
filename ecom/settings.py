@@ -4,6 +4,8 @@ import os
 from dotenv import load_dotenv
 import dj_database_url
 
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -17,15 +19,11 @@ SECRET_KEY = os.environ.get('SECRET_KEY', default="django-insecure-r0od)8#qrnnx6
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG', default=True)
 
-ALLOWED_HOSTS = os.environ.get(
-    'ALLOWED_HOSTS', 
-    default=['shopmax-render.onrender.com','127.0.0.1', 'localhost'], 
-    # cast=lambda v: [s.strip() for s in v.split(',')] if v else ['shopmax-render.onrender.com', '127.0.0.1']
-)
+ALLOWED_HOSTS = ['shopmax-render.onrender.com', '127.0.0.1', 'localhost']
 
-CSRF_TRUSTED_ORIGINS = []
+CSRF_TRUSTED_ORIGINS = ['https://shopmax-render.onrender.com', 'http://127.0.0.1', 'http://localhost']
 # Application definition
-SITE_ID = 3
+SITE_ID = int(os.environ.get('SITE_ID', 1))
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -34,18 +32,10 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-
+    "whitenoise.runserver_nostatic",
     'main',
     'cart',
-    'whitenoise.runserver_nostatic',
-
-
     'django.contrib.sitemaps',
-
-    # Google Authentication
-
-
-
     'django.contrib.sites',
     'allauth',
     'allauth.account',
@@ -53,64 +43,66 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google',
 ]
 
-# SOCIALACCOUNT_PROVIDERS = {
-#     'google': {
-#         'SCOPE': [
-#             'profile',
-#             'email',
-#         ],
-#         'AUTH_PARAMS': {
-#             'access_type': 'online',
-#         },
-#         'OAUTH_PKCE_ENABLED': True,
-#         'APP': {
-#             'client_id': os.environ.get('SOCIAL_AUTH_GOOGLE_OAUTH2_KEY'),
-#             'secret': os.environ.get('SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET'),
-#             'key': ''
-#         }
-#     }
-# }
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'online',
+        }
+    }
+}
 
-# SOCIALACCOUNT_PROVIDERS = {
-#     'google': {
-#         'SCOPE': ['profile', 'email'],  # Requesting the email scope explicitly
-#         'AUTH_PARAMS': {'access_type': 'online'},
-#         'OAUTH_PKCE_ENABLED': True,
-#         'APP': {
-#             'client_id': os.environ.get('SOCIAL_AUTH_GOOGLE_OAUTH2_KEY'),
-#             'secret': os.environ.get('SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET'),
-#             'key': ''
-#         }
-#     }
-# }
-
+# Allauth configuration
+LOGIN_REDIRECT_URL = '/'
+ACCOUNT_LOGOUT_REDIRECT_URL = '/'
+SOCIALACCOUNT_LOGIN_ON_GET = True
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_EMAIL_VERIFICATION = 'none'
 
 SECURE_CROSS_ORIGIN_OPENER_POLICY = "same-origin-allow-popups"
 
+# Cache settings
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+        'LOCATION': 'unique-snowflake',
+        'TIMEOUT': 300,  # 5 minutes default timeout
+    }
+}
+
+# Cache middleware settings
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.cache.UpdateCacheMiddleware",  # Add this
     "django.middleware.common.CommonMiddleware",
+    "django.middleware.cache.FetchFromCacheMiddleware",  # Add this
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-
-    # Allauth middleware
     "allauth.account.middleware.AccountMiddleware",
-    
-    # Session extension
     'ecom.middleware.ExtendSessionMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
-ROOT_URLCONF = 'ecom.urls'
+# Cache settings
+CACHE_MIDDLEWARE_SECONDS = 300
+CACHE_MIDDLEWARE_KEY_PREFIX = ''
 
+# Static files compression and caching
+WHITENOISE_MAX_AGE = 31536000  # 1 year in seconds
+
+# Template caching
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
         "DIRS": [BASE_DIR / 'templates'],
-        "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
                 "django.template.context_processors.debug",
@@ -119,27 +111,21 @@ TEMPLATES = [
                 "django.contrib.messages.context_processors.messages",
                 "cart.context_processors.cart",
             ],
+            'loaders': [
+                ('django.template.loaders.cached.Loader', [
+                    'django.template.loaders.filesystem.Loader',
+                    'django.template.loaders.app_directories.Loader',
+                ]),
+            ],
         },
     },
 ]
 
-WSGI_APPLICATION = "ecom.wsgi.application"
+ROOT_URLCONF = 'ecom.urls'
 
-# Database os.environ.geturation
-
+# Database configuration
 DATABASES = {
-    # "default": {
-    #     "ENGINE": "django.db.backends.sqlite3",
-    #     "NAME": BASE_DIR / "db.sqlite3",
-    # }
         'default': {
-            # 'ENGINE': 'django.db.backends.postgresql',
-            # 'NAME': 'railway',
-            # 'USER' : 'postgres',
-            # 'PASSWORD' : os.environ.get('POSTGRES_PASSWORD'),
-            # 'HOST' : 'roundhouse.proxy.rlwy.net',
-            # 'PORT' : '52417', 
-
             'ENGINE': 'django.db.backends.postgresql',
             'NAME': 'postgres',
             'USER' : 'postgres',
@@ -170,9 +156,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)f
 STATIC_URL = "static/"
 STATICFILES_DIRS = [BASE_DIR / 'static']
-# whitenoise
-# STATICFILES_STORAGE = 'whitenoise.storage.ManifestStaticFilesStorage'
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+# Update WhiteNoise configuration to use simple storage
+WHITENOISE_USE_FINDERS = True
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 
 STATIC_ROOT = BASE_DIR/'staticfiles'
 # Media files

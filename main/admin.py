@@ -9,7 +9,6 @@ admin.site.register(models.Category)
 admin.site.register(models.Product)
 # admin.site.register(models.Picture)
 admin.site.register(models.Order)
-admin.site.register(models.Banner)
 admin.site.register(models.Profile)
 
 

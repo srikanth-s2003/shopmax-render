@@ -10,28 +10,19 @@
       </div>
     </div>
 
-
-    <div class="site-section" style="">
+    <div class="site-section">
       <div class="container">
-
         <div class="row mb-5">
-          <div class="col-md-12 order-1">
-
-            <div class="row align" style="height: 10px;">
-              <div class="col-md-12 mb-5">
-                <div class="float-md-left"><h2 class="text-black h5">Shop All</h2></div>
-                <div class="d-flex">
-                  <div class="dropdown mr-1 ml-md-auto">
-                  </div>
-                  <div class="btn-group">
-                    <button type="button" class="btn btn-white btn-sm dropdown-toggle px-4" id="dropdownMenuReference" data-toggle="dropdown">Sort By</button>
+          <div class="col-md-12">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+              <h2 class="text-black h5 mb-0">Shop All</h2>
+              <div class="dropdown">
+                <button type="button" class="btn btn-secondary btn-sm dropdown-toggle" id="dropdownMenuReference" data-toggle="dropdown">Sort By</button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuReference">
-                      <a class="dropdown-item" href="?sort_by=name&order={% if sort_by == 'name' and order == 'asc' %}desc{% else %}asc{% endif %}">Name, A to Z</a>
+                  <a class="dropdown-item" href="?sort_by=name&order={% if sort_by == 'name' and order == 'asc' %}desc{% else %}asc{% endif %}&page={{ products.number }}">Name, A to Z</a>
                       <div class="dropdown-divider"></div>
-                      <a class="dropdown-item" href="?sort_by=price&order={% if sort_by == 'price' and order == 'asc' %}desc{% else %}desc{% endif %}">Price, High to low</a>
-                      <a class="dropdown-item" href="?sort_by=price&order={% if sort_by == 'price' and order == 'desc' %}asc{% else %}asc{% endif %}">Price, low to high</a>
-                    </div>
-                  </div>
+                  <a class="dropdown-item" href="?sort_by=price&order={% if sort_by == 'price' and order == 'asc' %}desc{% else %}desc{% endif %}&page={{ products.number }}">Price, High to low</a>
+                  <a class="dropdown-item" href="?sort_by=price&order={% if sort_by == 'price' and order == 'desc' %}asc{% else %}asc{% endif %}&page={{ products.number }}">Price, low to high</a>
                 </div>
               </div>
             </div>
@@ -40,48 +31,105 @@
 
         {% if messages %}
           {%for message in messages %}
-            <p style="text-align: center;">{{message}}</p>
+            <div class="alert alert-info text-center">{{message}}</div>
           {% endfor %}
         {% endif %}
+
         {% if products %}
+        <div class="row">
         {% for product in products %}
-        <a href="{% url 'single_product' product.id %}">
-        <div class="shopgrids" style="margin-bottom: 10px;">
-          <div class="shopdetails" style="display: flex;align-items:center;justify-content:center; width:250px">
-            <img src="{{product.images1.url}}" alt="" srcset="" >
+          <div class="col-6 col-md-4 col-lg-3 mb-4">
+            <a href="{% url 'single_product' product.id %}" class="text-decoration-none">
+              <div class="card h-100 border-0 shadow-sm">
+                <div style="height: 250px; padding: 15px;">
+                  <img src="{{product.images1.url}}" class="w-100 h-100" style="object-fit: contain;" alt="{{product.name}}">
           </div>
-          <div class="productconduct">
-            <h3 style="font-family: serif;">{{product.name}}</h3>
-    
-            <div class="product-rating">
-              
+                <div class="card-body">
+                  <h5 class="card-title text-dark" style="font-size: 1rem; height: 3rem; overflow: hidden;">{{product.name}}</h5>
+                  <p class="card-text text-primary font-weight-bold mb-2">₹{{product.price}}</p>
+                  <div class="small text-muted">
               {% if product.Category.name == "mobile phones" %}
-              <ul>
-                <li>RAM/ROM: &nbsp;{{product.description1}}</li> <!-- RAM/ROM-->
-                <li>DISPLAY: &nbsp;{{product.description2}}</li> <!-- Display-->
-                <li>CAMERA: &nbsp;{{product.description3}}</li> <!--camera-->
-                <li>BATTERY: &nbsp;{{product.description4}}</li> <!--Battery-->
-                <li>PROCESSOR: &nbsp;{{product.description5}}</li> <!--processor-->
+                    <ul class="list-unstyled mb-0" style="font-size: 0.85rem;">
+                      <li class="mb-1">RAM/ROM: {{product.description1}}</li>
+                      <li class="mb-1">Display: {{product.description2}}</li>
+                      <li class="mb-1">Camera: {{product.description3}}</li>
+                      <li class="mb-1">Battery: {{product.description4}}</li>
+                      <li class="mb-1">Processor: {{product.description5}}</li>
               </ul>
               {% else %}
-              <ul>
-                <li>&nbsp;{{product.description1}}</li> <!-- RAM/ROM-->
-                <li>&nbsp;{{product.description2}}</li> <!-- Display-->
-                <li>&nbsp;{{product.description3}}</li> <!--camera-->
-                <li>&nbsp;{{product.description4}}</li> <!--Battery-->
-                <li>&nbsp;{{product.description5}}</li> <!--processor-->
+                    <ul class="list-unstyled mb-0" style="font-size: 0.85rem;">
+                      <li class="mb-1">{{product.description1}}</li>
+                      <li class="mb-1">{{product.description2}}</li>
+                      <li class="mb-1">{{product.description3}}</li>
+                      <li class="mb-1">{{product.description4}}</li>
+                      <li class="mb-1">{{product.description5}}</li>
               </ul>
               {% endif %}
             </div>
           </div>
         </div>  
         </a>
+          </div>
+          {% endfor %}
+        </div>
+
+        <!-- Pagination -->
+        {% if products.paginator.num_pages > 1 %}
+        <div class="row mt-4">
+          <div class="col-md-12">
+            <nav aria-label="Page navigation">
+              <ul class="pagination justify-content-center">
+                {% if products.has_previous %}
+                  <li class="page-item">
+                    <a class="page-link" href="?page={{ products.previous_page_number }}&sort_by={{ sort_by }}&order={{ order }}">&laquo;</a>
+                  </li>
+                {% endif %}
+
+                {% for i in products.paginator.page_range %}
+                  {% if products.number == i %}
+                    <li class="page-item active">
+                      <span class="page-link">{{ i }}</span>
+                    </li>
+                  {% else %}
+                    <li class="page-item">
+                      <a class="page-link" href="?page={{ i }}&sort_by={{ sort_by }}&order={{ order }}">{{ i }}</a>
+                    </li>
+                  {% endif %}
         {% endfor %}
+
+                {% if products.has_next %}
+                  <li class="page-item">
+                    <a class="page-link" href="?page={{ products.next_page_number }}&sort_by={{ sort_by }}&order={{ order }}">&raquo;</a>
+                  </li>
+                {% endif %}
+              </ul>
+            </nav>
+          </div>
+        </div>
+        {% endif %}
         {% else %}
-        <br>
-        <p style="text-align: center;">There is nothing show...</p><br><br><br><br><br>
+        <div class="text-center py-5">
+          <p class="lead">No products found</p>
+        </div>
         {% endif %}
       </div>
     </div>
+
+    <style>
+      .card {
+        transition: transform 0.2s ease-in-out;
+      }
+      .card:hover {
+        transform: translateY(-5px);
+      }
+      .card-body {
+        padding: 1rem;
+      }
+      .list-unstyled li {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    </style>
 
 {% endblock %}

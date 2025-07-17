@@ -3,8 +3,13 @@
 <div class="bg-light py-3">
   <div class="container">
     <div class="row">
-      <div class="col-md-12 mb-0"><a href="index.html">Home</a> <span class="mx-2 mb-0">/</span> <a
-          href="cart.html">Cart</a> <span class="mx-2 mb-0">/</span> <strong class="text-black">Checkout</strong></div>
+      <div class="col-md-12 mb-0">
+        <a href="{% url 'home' %}">Home</a> 
+        <span class="mx-2 mb-0">/</span> 
+        <a href="{% url 'cart_summary' %}">Cart</a> 
+        <span class="mx-2 mb-0">/</span> 
+        <strong class="text-black">Checkout</strong>
+      </div>
     </div>
   </div>
 </div>
@@ -13,142 +18,168 @@
   <div class="container">
     <div class="row">
       <div class="col-md-6 mb-5 mb-md-0">
-        <h2 class="h3 mb-3 text-black">Billing Details</h2>
-        <div class="p-3 p-lg-5 border">
+        <h2 class="h3 mb-4 text-black font-weight-bold">Billing Details</h2>
+        <div class="p-3 p-lg-5 border bg-white shadow-sm rounded">
           <div class="form-group row">
             <div class="col-md-6">
               <label for="c_fname" class="text-black">First Name <span class="text-danger">*</span></label>
-              <input type="text" class="form-control" id="c_fname" name="c_fname">
+              <input type="text" class="form-control rounded-lg" id="c_fname" name="c_fname">
             </div>
             <div class="col-md-6">
               <label for="c_lname" class="text-black">Last Name <span class="text-danger">*</span></label>
-              <input type="text" class="form-control" id="c_lname" name="c_lname">
+              <input type="text" class="form-control rounded-lg" id="c_lname" name="c_lname">
             </div>
           </div>
           <div class="form-group row">
             <div class="col-md-12">
               <label for="c_address" class="text-black">Address <span class="text-danger">*</span></label>
-              <textarea name="address" id="c_address" class="form-control"></textarea>
+              <textarea name="address" id="c_address" class="form-control rounded-lg" rows="3"></textarea>
             </div>
           </div>
           <div class="form-group row">
             <div class="col-md-6">
               <div class="form-group">
                 <label for="c_country" class="text-black">State <span class="text-danger">*</span></label>
-                <select id="c_country" class="form-control">
-                  <option value="1">Select a state</option>
-                  <option value="2">bangladesh</option>
-                  <option value="3">Algeria</option>
-                  <option value="4">Afghanistan</option>
-                  <option value="5">Ghana</option>
-                  <option value="6">Albania</option>
-                  <option value="7">Bahrain</option>
-                  <option value="8">Colombia</option>
-                  <option value="9">Dominican Republic</option>
+                <select id="c_country" class="form-control rounded-lg">
+                  <option value="">Select a state</option>
+                  <option value="AN">Andaman and Nicobar Islands</option>
+                  <option value="AP">Andhra Pradesh</option>
+                  <option value="AR">Arunachal Pradesh</option>
+                  <option value="AS">Assam</option>
+                  <option value="BR">Bihar</option>
+                  <option value="CH">Chandigarh</option>
+                  <option value="CT">Chhattisgarh</option>
+                  <option value="DN">Dadra and Nagar Haveli</option>
+                  <option value="DD">Daman and Diu</option>
+                  <option value="DL">Delhi</option>
+                  <option value="GA">Goa</option>
+                  <option value="GJ">Gujarat</option>
+                  <option value="HR">Haryana</option>
+                  <option value="HP">Himachal Pradesh</option>
+                  <option value="JK">Jammu and Kashmir</option>
+                  <option value="JH">Jharkhand</option>
+                  <option value="KA">Karnataka</option>
+                  <option value="KL">Kerala</option>
+                  <option value="LA">Ladakh</option>
+                  <option value="LD">Lakshadweep</option>
+                  <option value="MP">Madhya Pradesh</option>
+                  <option value="MH">Maharashtra</option>
+                  <option value="MN">Manipur</option>
+                  <option value="ML">Meghalaya</option>
+                  <option value="MZ">Mizoram</option>
+                  <option value="NL">Nagaland</option>
+                  <option value="OR">Odisha</option>
+                  <option value="PY">Puducherry</option>
+                  <option value="PB">Punjab</option>
+                  <option value="RJ">Rajasthan</option>
+                  <option value="SK">Sikkim</option>
+                  <option value="TN">Tamil Nadu</option>
+                  <option value="TG">Telangana</option>
+                  <option value="TR">Tripura</option>
+                  <option value="UP">Uttar Pradesh</option>
+                  <option value="UT">Uttarakhand</option>
+                  <option value="WB">West Bengal</option>
                 </select>
               </div>
             </div>
             <div class="col-md-6">
               <label for="c_postal_zip" class="text-black">Pincode <span class="text-danger">*</span></label>
-              <input type="text" class="form-control" id="c_postal_zip" name="c_postal_zip">
+              <input type="text" class="form-control rounded-lg" id="c_postal_zip" name="c_postal_zip">
             </div>
           </div>
 
           <div class="form-group row mb-5">
             <div class="col-md-6">
               <label for="c_email_address" class="text-black">Email Address <span class="text-danger">*</span></label>
-              <input type="text" class="form-control" id="c_email_address" name="c_email_address">
+              <input type="email" class="form-control rounded-lg" id="c_email_address" name="c_email_address">
             </div>
             <div class="col-md-6">
               <label for="c_phone" class="text-black">Phone <span class="text-danger">*</span></label>
-              <input type="text" class="form-control" id="c_phone" name="c_phone" placeholder="Phone Number">
+              <input type="tel" class="form-control rounded-lg" id="c_phone" name="c_phone" placeholder="Phone Number">
             </div>
-
           </div>
           <div class="form-group">
-            <a href="{% url 'thankyou' %}">
-              <button class="btn btn-primary btn-lg btn-block" type="submit">Update Address</button></a>
+            <button class="btn btn-primary btn-lg py-3 btn-block rounded-lg" onclick="window.location='{% url 'thankyou' %}'">Update Address</button>
           </div>
         </div>
       </div>
       <div class="col-md-6">
-
-        <div class="row">
+        <div class="row mb-5">
           <div class="col-md-12">
-            <label class="text-black h4" for="coupon">Coupon</label>
-            <p>Enter your coupon code if you have one.</p>
-          </div>
-          <form action="{% url 'checkout' %}" method="POST" style="display: flex;">
+            <h2 class="h3 mb-3 text-black font-weight-bold">Coupon Code</h2>
+            <div class="p-3 p-lg-5 border bg-white shadow-sm rounded">
+              <label class="text-black h4" for="coupon">Have a Coupon?</label>
+              <p class="mb-4">Enter your coupon code if you have one.</p>
+              <form action="{% url 'checkout' %}" method="POST" class="mb-3">
             {% csrf_token %}
-            <div class="col-md-8 mb-3 mb-md-0">
-              <input type="text" class="form-control" style="width: 300px;" id="coupon" placeholder="Coupon Code"
-                name="coupon">
+                <div class="input-group w-100">
+                  <input type="text" class="form-control rounded-lg" id="coupon" placeholder="Enter your coupon code" name="coupon">
+                  <div class="input-group-append">
+                    <button class="btn btn-primary rounded-lg ml-2">Apply Coupon</button>
             </div>
-            <div class="col-md-4">
-              <button class="btn btn-primary btn-sm px-4">Apply Coupon</button>
             </div>
-
           </form>
           {% if messages %}
+              <div class="alert alert-info mt-3">
           {% for message in messages %}
-          <P>*{{message}}</P>
+                <p class="mb-0">{{message}}</p>
           {% endfor %}
+              </div>
           {% endif %}
+            </div>
+          </div>
         </div>
 
         <div class="row mb-5">
           <div class="col-md-12">
-            <h2 class="h3 mb-3 text-black">Your Order</h2>
-            <div class="p-3 p-lg-5 border">
+            <h2 class="h3 mb-3 text-black font-weight-bold">Your Order</h2>
+            <div class="p-3 p-lg-5 border bg-white shadow-sm rounded">
               <table class="table site-block-order-table mb-5">
                 <thead>
-                  <th>Product</th>
-                  <th>Total</th>
+                  <tr>
+                    <th class="text-black">Product</th>
+                    <th class="text-black text-right">Total</th>
+                  </tr>
                 </thead>
                 <tbody>
-                  {%for product in cart_products%}
+                  {% for product in cart_products %}
                   <tr>
-                    <td class="product-name">
-                      {{product.name}}
-                    </td>
-                    <td>{{product.price}}</td>
+                    <td class="text-black">{{product.name}}</td>
+                    <td class="text-right">&#x20b9;{{product.price}}</td>
                   </tr>
                   {% endfor %}
-
-                  <tr>
+                  <tr class="border-top">
                     <td class="text-black font-weight-bold">Cart Subtotal</td>
-                    <td class="text-black"><strong class="text-black">&#x20b9;{{subtotal}}</strong></td>
+                    <td class="text-black text-right"><strong>&#x20b9;{{subtotal}}</strong></td>
                   </tr>
                   <tr>
                     <td class="text-black font-weight-bold"><strong>Order Total</strong></td>
-                    <td class="text-black font-weight-bold"> <strong class="text-black">&#x20b9;{{total}}</strong></td>
+                    <td class="text-black text-right"><strong>&#x20b9;{{total}}</strong></td>
                   </tr>
                 </tbody>
               </table>
 
-              <div class="border p-3 mb-3">
-                <h3 class="h6 mb-0"><a class="d-block" data-toggle="collapse" href="#collapsebank" role="button"
-                    aria-expanded="false" aria-controls="collapsebank">CASH ON DELIVERY</a></h3>
-
+              <div class="border rounded p-3 mb-4 bg-light">
+                <h3 class="h6 mb-0">
+                  <a class="d-block text-black" data-toggle="collapse" href="#collapsebank" role="button" aria-expanded="false" aria-controls="collapsebank">
+                    <i class="fas fa-money-bill-wave mr-2"></i> CASH ON DELIVERY
+                  </a>
+                </h3>
                 <div class="collapse" id="collapsebank">
-                  <div class="py-2">
-                    <p class="mb-0">Please note that payment is due upon delivery. Kindly pay in cash when you receive
-                      your product. Thank you for shopping with us!</p>
+                  <div class="py-2 mt-3">
+                    <p class="mb-0 text-muted">Please note that payment is due upon delivery. Kindly pay in cash when you receive your product. Thank you for shopping with us!</p>
                   </div>
                 </div>
               </div>
-              <div class="form-group">
-                <a href="{% url 'thankyou' %}">
-                  <button class="btn btn-primary btn-lg btn-block" type="submit">Place Order</button></a>
-              </div>
 
+              <button class="btn btn-primary btn-lg py-3 btn-block rounded-lg" onclick="window.location='{% url 'thankyou' %}'">
+                Place Order <i class="fas fa-arrow-right ml-2"></i>
+              </button>
             </div>
           </div>
         </div>
-
       </div>
     </div>
-
   </div>
 </div>
 {% endblock %}
