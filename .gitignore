@@ -1,3 +1,6 @@
 # Ignore fixture data files
 complete_data.json
 whole.json
+
+.env
+.env.docker

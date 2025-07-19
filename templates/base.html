@@ -140,14 +140,14 @@
             </nav>
           </div>
           <hr>
-          <div class="icons center-icon">
+          <div class="icons center-icon" style="display: flex;">
 
             <div class="icons-btn d-inline-block search-container designme" id="">
-              <form autocomplete="off" method="POST" action="{% url 'search' %}">
+              <form autocomplete="off" method="POST" action="{% url 'search' %}" style="display: flex;">
                 {% csrf_token %}
                 <input type="text" name="q" id="q" onKeyUp="showResults(this.value)" class="inputsearch"
                   style="overflow: hidden;" />
-                <div id="result"></div>
+                <!-- <div id="result"></div> -->
                 <span class="icon-search search-icon" type="submit"></span>
               </form>
 
@@ -160,87 +160,86 @@
             <!-- user profile -->
 
             {% if user.is_authenticated %}
-<div class="user__profile">
-  {% with user.socialaccount_set.first.extra_data.picture as profile_pic %}
-    {% if profile_pic %}
-      <li class="nav-item dropdown">
-        <div class="profile-pic">
-          <img src="{{ profile_pic }}" alt="Profile Picture" class="rounded-circle" height="30" loading="lazy" />
-        </div>
-      </li>
-    {% else %}
-      <span class="icon-user"></span>
-    {% endif %}
-  {% endwith %}
-  <ul class="shows">
-    <li><a href="{% url 'profile' %}">Show Profile</a></li>
-    <li><a href="{% url 'logout' %}">Logout</a></li>
-  </ul>
-</div>
-{% else %}
-<a href="{% url 'login' %}" id="showform" class="show">
-  <button class="btn btn-secondary" style="height: 35px;">Login</button>
-</a>
+            <div class="user__profile">
+              {% with user.socialaccount_set.first.extra_data.picture as profile_pic %}
+                {% if profile_pic %}
+                  <li class="nav-item dropdown">
+                    <div class="profile-pic">
+                      <img src="{{ profile_pic }}" alt="Profile Picture" class="rounded-circle" height="30" loading="lazy" />
+                    </div>
+                  </li>
+                {% else %}
+                  <span class="icon-user"></span>
+                {% endif %}
+              {% endwith %}
+              <ul class="shows">
+                <li><a href="{% url 'profile' %}">Show Profile</a></li>
+                <li><a href="{% url 'logout' %}">Logout</a></li>
+              </ul>
+            </div>
+            {% else %}
+            <a href="{% url 'login' %}" id="showform" class="show">
+              <button class="btn btn-secondary" style="height: 35px; margin-left: 10px;">Login</button>
+            </a>
 
-<div class="parent">
-  <div class="login_form" id="forms">
-    <div class="cross">
-      <span id="close">X</span>
-    </div>
-    <form action="/login/" method="POST">
-      {% csrf_token %}
-      <h3>Login</h3>
+            <div class="parent">
+              <div class="login_form" id="forms">
+                <div class="cross">
+                  <span id="close">X</span>
+                </div>
+                <form action="/login/" method="POST">
+                  {% csrf_token %}
+                  <h3>Login</h3>
 
-      {% if messages %}
-        {% for message in messages %}
-          <p>{{ message }}</p>
-        {% endfor %}
-      {% endif %}
+                  {% if messages %}
+                    {% for message in messages %}
+                      <p>{{ message }}</p>
+                    {% endfor %}
+                  {% endif %}
 
-      <div class="input_box">
-        <label for="email">Email</label>
-        <input type="email" id="email" name="email" placeholder="Enter email address" required />
-      </div>
+                  <div class="input_box">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="Enter email address" required />
+                  </div>
 
-      <div class="input_box">
-        <input type="password" id="password" name="password" placeholder="Enter your password" required />
-        <span class="forgotpass"><a href="#">Forgot Password?</a></span>
-      </div>
+                  <div class="input_box">
+                    <input type="password" id="password" name="password" placeholder="Enter your password" required />
+                    <span class="forgotpass"><a href="#">Forgot Password?</a></span>
+                  </div>
 
-      <button type="submit">Log In</button>
+                  <button type="submit">Log In</button>
 
-      <p class="sign_up">Don't have an account? <a href="{% url 'register' %}">Sign up</a></p>
+                  <p class="sign_up">Don't have an account? <a href="{% url 'register' %}">Sign up</a></p>
 
-      <p class="separator">
-        <span style="color: black;">or</span>
-      </p>
-      <h3>Log in with</h3>
-      <div class="login_option">
-        <div class="option">
-          <form action="{% provider_login_url 'google' %}?next=/" method="post">
-            {% csrf_token %}
-            <button type="submit">
-              <img src="{% static 'logos/google.png' %}" alt="Google" />
-              <span>Google</span>
-            </button>
-          </form>
-        </div>
-        <!-- Placeholder for Apple Login -->
-        <div class="option">
-          <a href="#">
-            <img src="{% static 'logos/apple.png' %}" alt="Apple" />
-            <span>Apple</span>
-          </a>
-        </div>
-      </div>
-    </form>
-  </div>
-</div>
-{% endif %}
-<a href="#" class="site-menu-toggle js-menu-toggle ml-3 d-inline-block d-lg-none">
-  <span class="icon-menu"></span>
-</a>
-
+                  <p class="separator">
+                    <span style="color: black;">or</span>
+                  </p>
+                  <h3>Log in with</h3>
+                  <div class="login_option">
+                    <div class="option">
+                      <form action="{% provider_login_url 'google' %}?next=/" method="post">
+                        {% csrf_token %}
+                        <button type="submit">
+                          <img src="{% static 'logos/google.png' %}" alt="Google" />
+                          <span>Google</span>
+                        </button>
+                      </form>
+                    </div>
+                    <!-- Placeholder for Apple Login -->
+                    <div class="option">
+                      <a href="#">
+                        <img src="{% static 'logos/apple.png' %}" alt="Apple" />
+                        <span>Apple</span>
+                      </a>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+            {% endif %}
+            <a href="#" class="site-menu-toggle js-menu-toggle ml-3 d-inline-block d-lg-none">
+              <span class="icon-menu"></span>
+            </a>
           </div>
         </div>
       </div>
@@ -252,7 +251,7 @@
 
       {% endblock %}
       <!-- end of main body -->
-<hr>
+      <hr>
       <footer class="site-footer custom-border-top" style="padding:0px;">
         <div class="container">
           <div class="row">
@@ -313,7 +312,7 @@
                   <li class="email">srikanththebillionaire@gmail.com</li>
                 </ul>
               </div>
-
+<!-- 
               <div class="block-7">
                 <form action="#" method="post">
                   <label for="email_subscribe" class="footer-heading">Subscribe</label>
@@ -322,7 +321,7 @@
                     <input type="submit" class="btn btn-sm btn-primary" value="Send">
                   </div>
                 </form>
-              </div>
+              </div> -->
             </div>
           </div>
           <div class="row mt-5 text-center">

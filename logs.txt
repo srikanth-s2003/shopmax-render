@@ -1,5 +1,0 @@
-Using DATABASE_URL from environment variables
-Performing system checks...
-
-System check identified no issues (0 silenced).
-Using DATABASE_URL from environment variables

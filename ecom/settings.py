@@ -124,20 +124,36 @@ TEMPLATES = [
 ROOT_URLCONF = 'ecom.urls'
 
 # Database configuration
-DATABASES = {
+# DATABASES = {
+#         'default': {
+#             'ENGINE': 'django.db.backends.postgresql',
+#             'NAME': 'postgres',
+#             'USER' : 'postgres',
+#             'PASSWORD' : os.environ.get('POSTGRES_PASSWORD'),
+            
+#             'HOST' : 'db.qeqbbozzesguzpgngxyq.supabase.co',
+#             'PORT' : '5432', 
+#     }
+# }
+
+# DATABASES["default"] = dj_database_url.parse(os.environ.get("Supabase-database"))
+
+if os.environ.get('DATABASE_URL'):
+    DATABASES = {
+        'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
+    }
+else:
+    DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
-            'NAME': 'postgres',
-            'USER' : 'postgres',
-            'PASSWORD' : os.environ.get('POSTGRES_PASSWORD'),
-            
-            'HOST' : 'db.qeqbbozzesguzpgngxyq.supabase.co',
-            'PORT' : '5432', 
+            'NAME': os.environ.get('DB_NAME'),
+            'USER': os.environ.get('DB_USER'),
+            'PASSWORD': os.environ.get('DB_PASSWORD'),
+            'HOST': os.environ.get('DB_HOST'),
+            'PORT': os.environ.get('DB_PORT', 5432),
+        }
     }
-}
 
-# DATABASES["default"] = dj_database_url.parse("")
-DATABASES["default"] = dj_database_url.parse(os.environ.get("Supabase-database"))
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
