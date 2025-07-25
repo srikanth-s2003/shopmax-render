@@ -19,7 +19,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY', default="django-insecure-r0od)8#qrnnx6
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG', default=True)
 
-ALLOWED_HOSTS = ['shopmax-render.onrender.com', '127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['shopmax-render.onrender.com', '127.0.0.1', 'localhost', '0.0.0.0']
 
 CSRF_TRUSTED_ORIGINS = ['https://shopmax-render.onrender.com', 'http://127.0.0.1', 'http://localhost']
 # Application definition
@@ -138,6 +138,7 @@ ROOT_URLCONF = 'ecom.urls'
 
 # DATABASES["default"] = dj_database_url.parse(os.environ.get("Supabase-database"))
 
+
 if os.environ.get('DATABASE_URL'):
     DATABASES = {
         'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
@@ -153,6 +154,18 @@ else:
             'PORT': os.environ.get('DB_PORT', 5432),
         }
     }
+
+
+    # DATABASES = {
+    #     'default': {
+    #         'ENGINE': 'django.db.backends.postgresql',
+    #         'NAME': os.environ.get('DB_NAME'),
+    #         'USER': os.environ.get('DB_USER'),
+    #         'PASSWORD': os.environ.get('DB_PASSWORD'),
+    #         'HOST': os.environ.get('DB_HOST'),
+    #         'PORT': os.environ.get('DB_PORT', 5432),
+    #     }
+    # }
 
 
 # Password validation

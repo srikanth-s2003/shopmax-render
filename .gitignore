@@ -4,3 +4,27 @@ whole.json
 
 .env
 .env.docker
+
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+env/
+venv/
+.git/
+.gitignore
+.DS_Store
+*.db
+*.sqlite3
+media/
+staticfiles/
+cloudSEE.tar
+datadabse.json
+db.json
+db.sqlite3
+docker-compose.yml
+Dockerfile
+entrypoint.sh
+runtime.txt
+*.log
+whole.json

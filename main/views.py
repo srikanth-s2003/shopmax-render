@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from django.contrib.auth import logout, login, authenticate
 from django.contrib.auth.decorators import login_required
-from .models import Product, Profile, Category
+from .models import Product, Profile, Category, CartActivity, Order
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
@@ -11,7 +11,7 @@ from django import forms
 import json
 from cart.cart import Cart
 from django.views.decorators.csrf import csrf_protect
-from django.db.models import Q 
+from django.db.models import Q, Count, F
 from django.core.paginator import Paginator
 from django.views.decorators.cache import cache_page
 from django.db.models import Prefetch
@@ -20,9 +20,16 @@ from django.http import JsonResponse
 # Create your views here.
 @cache_page(60 * 15)  # Cache for 15 minutes
 def home(request):
-    products = Product.objects.select_related('Category').all()[:12]  # Limit to 12 products for homepage
+    # Get the 5 most popular products based on cart activity and orders
+    popular_products = Product.objects.annotate(
+        cart_count=Count('cartactivity'),
+        order_count=Count('order')
+    ).annotate(
+        total_popularity=F('cart_count') + F('order_count')
+    ).order_by('-total_popularity', '-cart_count')[:5]
+    
     category = Category.objects.prefetch_related('products').all()
-    return render(request, 'index.html', {'products': products, 'productcat':category})
+    return render(request, 'index.html', {'products': popular_products, 'productcat':category})
 
 @cache_page(60 * 60)  # Cache for 1 hour
 def about(request):

@@ -92,14 +92,28 @@
                                     <th>Order #</th>
                                     <th>Date</th>
                                     <th>Status</th>
+                                    <th>Product</th>
+                                    <th>Quantity</th>
                                     <th>Total</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <!-- You can loop through orders here -->
-                                <tr>
-                                    <td colspan="4" class="text-center">No orders yet</td>
-                                </tr>
+                                {% if orders and orders|length > 0 %}
+                                    {% for order in orders %}
+                                    <tr>
+                                        <td>{{ order.id }}</td>
+                                        <td>{{ order.date|date:'Y-m-d H:i' }}</td>
+                                        <td>{% if order.status %}Completed{% else %}Pending{% endif %}</td>
+                                        <td>{{ order.product.name }}</td>
+                                        <td>{{ order.quantity }}</td>
+                                        <td>₹{{ order.product.price|floatformat:2 }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                {% else %}
+                                    <tr>
+                                        <td colspan="6" class="text-center">No orders yet</td>
+                                    </tr>
+                                {% endif %}
                             </tbody>
                         </table>
                     </div>

@@ -1,4 +1,4 @@
-from main.models import Product, Profile
+from main.models import Product, Profile, CartActivity
 from django.contrib.auth.models import User
 
 class Cart:
@@ -48,6 +48,8 @@ class Cart:
         else:
             self.cart[product_id] = {'price': str(product.price)}
             # self.cart[product_id] = int(product)
+            # Track cart activity for popularity
+            CartActivity.objects.create(product=product)
         self.session.modified = True
 
         if self.request.user.is_authenticated:

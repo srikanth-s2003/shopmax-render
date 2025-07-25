@@ -1,54 +1,213 @@
 <div id="maskf">
-{% extends 'base.html' %}
-{% load static %}
-
-
-{% block content %}
-
-  {% include 'banner.html' %}
-
-    <div class="site-section">
-      <div class="container">
-        <div class="title-section">
-          <h2 class="text-uppercase"><span class="d-block">Categories</span></h2>
-        </div>
-        <div class="row align-items-stretch">
-
-
-          <div class="category container" style="margin-bottom:30px">
-            <div class="product-category">
-              <a href="{% url 'shop_category' 'smartphones' %}"><div class="catego"><img src="{% static 'images/mobilephone.webp' %}" alt="">
-              <p style="padding: 10px;">Mobile</p>
+  {% extends 'base.html' %}
+  {% load static %}
+  
+  
+  {% block content %}
+  
+    {% include 'banner.html' %}
+  
+      <div class="site-section">
+        <div class="container">
+          <div class="title-section">
+            <h2 class="text-uppercase"><span class="d-block">Categories</span></h2>
+          </div>
+          <div class="row align-items-stretch">
+  
+  
+            <div class="category container" style="margin-bottom:30px">
+              <div class="product-category">
+                <a href="{% url 'shop_category' 'smartphones' %}"><div class="catego"><img src="{% static 'images/mobilephone.webp' %}" alt="">
+                <p style="padding: 10px;">Mobile</p>
+                </div></a>
+                <a href="{% url 'shop_category' 'laptops' %}"><div class="catego"><img src="{% static 'images/laptops.webp' %}" alt=""><p style="padding: 10px;">Laptops</p></div></a>
+                <a href="{% url 'shop_category' 'audio' %}"><div class="catego"><img src="{% static 'images/twsfinal.webp' %}" alt=""><p style="padding: 10px;">TWS</p></div></a>
+                <a href="{% url 'shop_category' 'accessories' %}"><div class="catego"><img src="{% static 'images/access.avif' %}" alt=""><p style="padding: 10px;">Accessories</p></div></a>
               </div>
-              <a href="{% url 'shop_category' 'laptops' %}"><div class="catego"><img src="{% static 'images/laptops.webp' %}" alt=""><p style="padding: 10px;">Laptops</p></div>
-              <a href="{% url 'shop_category' 'audio' %}"><div class="catego"><img src="{% static 'images/twsfinal.webp' %}" alt=""><p style="padding: 10px;">TWS</p></div>
-              <a href="{% url 'shop_category' 'accessories' %}"><div class="catego"><img src="{% static 'images/access.avif' %}" alt=""><p style="padding: 10px;">Accessories</p></div>
             </div>
+        </div>
+      </div>
+  
+  <!-- Popular Products Section -->
+  <div class="site-section bg-light" style="margin-top: 100px;">
+    <div class="container" style="display: block;">
+      <div class="row">
+        <div class="col-12">
+          <div class="section-header" style="margin-top: 2rem;">
+            <h2 class="section-title">Top 5 Popular Products</h2>
+            <p class="section-subtitle">Our most added to cart and purchased items</p>
           </div>
+        </div>
+      </div>
+
+      <div class="row">
+        {% for product in products %}
+        <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+          <a href="{% url 'single_product' product.id %}" class="product-link">
+            <div class="product-card-fixed">
+              <div class="product-image-wrapper-fixed">
+                <img src="{{product.images1.url}}" alt="{{product.name}}" class="product-image-fixed">
+                {% if product.mrp > product.price %}
+                  <div class="discount-badge-fixed">
+                    <span>% OFF</span>
+                  </div>
+                {% endif %}
+              </div>
+              <div class="product-info-fixed">
+                <div class="product-category-fixed">{{product.Category.name}}</div>
+                <h3 class="product-title-fixed">{{product.name}}</h3>
+                <div class="product-price-fixed">
+                  <span class="current-price-fixed">₹{{product.price}}</span>
+                  {% if product.mrp > product.price %}
+                    <span class="original-price-fixed">₹{{product.mrp}}</span>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
+        {% endfor %}
       </div>
     </div>
+  </div>
 
+  <style>
+    .section-header {
+      text-align: center;
+      margin-bottom: 3rem;
+      padding: 2rem 0;
+    }
     
-    <div class="site-section">
-      <div class="container">
-        <div class="row">
-          <div class="title-section  col-12">
-            <h2 class="text-uppercase">Popular Products</h2>
-          </div>
-        </div>
-
-        <div class="row" style="box-sizing:border-box">
-          {% for product in products %}
-          <div class="col-lg-4 col-md-6 item-entry mb-4" style="">
-            <a href="{% url 'single_product' product.id %}" class="product-item md-height bg-gray d-block" style="padding-bottom:5px;">
-              <img src="{{product.images1.url}}" alt="Image" style="width: 100%; height: 290px; object-fit:contain;">
-            </a>
-            <h2 class="item-title" style="text-align: center;"><a href="{% url 'single_product' product.id %}">{{product.name}}</a></h2>
-            <strong class="item-price" style="display: block; text-align:center;padding:5px">&#x20b9;{{product.price}}</strong>
-          </div>
-          {% endfor %}
-        </div>
-      </div>
-    </div>
-{% endblock %}
-</div>  
+    .section-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #2c3e50;
+      margin-bottom: 0.5rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    
+    .section-subtitle {
+      font-size: 1.1rem;
+      color: #7f8c8d;
+      margin: 0;
+      font-weight: 300;
+    }
+    
+    .product-link {
+      text-decoration: none;
+      color: inherit;
+      display: block;
+      height: 100%;
+    }
+    
+    .product-link:hover {
+      text-decoration: none;
+      color: inherit;
+    }
+    
+    .product-card-fixed {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+      transition: box-shadow 0.2s;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      border: none;
+      overflow: hidden;
+    }
+    .product-card-fixed:hover {
+      box-shadow: 0 8px 32px rgba(44,62,80,0.12);
+    }
+    .product-image-wrapper-fixed {
+      position: relative;
+      height: 180px;
+      background: #f7f8fa;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+    .product-image-fixed {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      transition: transform 0.2s;
+    }
+    .product-card-fixed:hover .product-image-fixed {
+      transform: scale(1.04);
+    }
+    .discount-badge-fixed {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: #e74c3c;
+      color: #fff;
+      padding: 5px 14px;
+      border-radius: 16px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      box-shadow: 0 2px 8px rgba(231,76,60,0.12);
+    }
+    .product-info-fixed {
+      padding: 16px 18px 18px 18px;
+      flex: 1 1 auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+    .product-category-fixed {
+      font-size: 0.85rem;
+      color: #3498db;
+      font-weight: 600;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+    .product-title-fixed {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: #222;
+      margin-bottom: 10px;
+      line-height: 1.3;
+      min-height: 2.2em;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+    }
+    .product-price-fixed {
+      margin-top: auto;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .current-price-fixed {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #2c3e50;
+    }
+    .original-price-fixed {
+      font-size: 1rem;
+      color: #b2bec3;
+      text-decoration: line-through;
+    }
+    @media (max-width: 768px) {
+      .product-image-wrapper-fixed {
+        height: 120px;
+        padding: 10px;
+      }
+      .product-info-fixed {
+        padding: 12px 10px 14px 10px;
+      }
+      .product-title-fixed {
+        font-size: 0.98rem;
+        min-height: 1.8em;
+      }
+      .current-price-fixed {
+        font-size: 1rem;
+      }
+    }
+  </style>
+  {% endblock %}
+  </div>  

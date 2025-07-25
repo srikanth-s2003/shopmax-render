@@ -1,167 +1,678 @@
 {% extends 'base.html'%}
 {% load static %}
 
-    {% block content %}
+{% block content %}
 
-    <style>
-      img{
-        object-fit: contain;
-        background-size: cover;
-        background-attachment: fixed;
-      } 
+<style>
+  .product-page {
+    background: #f8f9fa;
+    padding: 2rem 0;
+    min-height: 100vh;
+  }
 
-    </style>
-    <div class = "card-wrapper" style="padding:10px; height: auto;">
-      <div class = "cards">
-        <!-- card left -->
-        <div class = "product-imgs" style="height: 800px; width:400px;margin:50px;">
-          <div class = "img-display" style=" margin-bottom:50px">
-            <div class = "img-showcase" style="height: 500px;">
-              <img src ="{{product.images1.url}}"  alt = "product images" class="img-fluid" >
-              <img src = "{{product.images2.url}}"  alt = "product images">
-              <img src = "{{product.images3.url}}"  alt = "product images">
-              <img src = "{{product.images4.url}}"  alt = "product images">
-            </div>
-          </div>
-          <div class = "img-select" >
-            <div class = "img-item" >
-              <a href = "#" data-id = "1">
-                <img src = "{{product.images1.url}}" alt = "product images" style="height: 120px; width:100px">
-              </a>
-            </div>
-            <div class = "img-item">
-              <a href = "#" data-id = "2">
-                <img src = "{{product.images2.url}}" alt = "product images" style="height: 120px; width:100px">
-              </a>
-            </div>
-            <div class = "img-item">
-              <a href = "#" data-id = "3">
-                <img src = "{{product.images3.url}}" alt = "product images" style="height: 120px; width:100px">
-              </a>
-            </div>
-            <div class = "img-item">
-              <a href = "#" data-id = "4">
-                <img src = "{{product.images4.url}}" alt = "product images" style="height: 120px; width:100px;">
-              </a>
-            </div>
-          </div>
+  .product-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 0px 4px 0px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    border: 1px solid #edf0f5;
+  }
+
+  .product-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+  }
+
+  /* Image Gallery */
+  .image-gallery {
+    background: #f8f9fa;
+    padding: 2rem;
+  }
+
+  .main-image-container {
+    height: 400px;
+    background: white;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+    box-shadow: 0 0px 4px 0px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    border: 1px solid #edf0f5;
+  }
+
+  .main-image {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    transition: transform 0.3s ease;
+  }
+
+  .main-image:hover {
+    transform: scale(1.05);
+  }
+
+  .thumbnail-gallery {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.5rem;
+  }
+
+  .thumbnail {
+    height: 80px;
+    background: white;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    overflow: hidden;
+    box-shadow: 0 0px 4px 0px rgba(0, 0, 0, 0.05);
+  }
+
+  .thumbnail:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0px 4px 0px rgba(0, 0, 0, 0.1);
+    border-color: #ee4266;
+  }
+
+  .thumbnail.active {
+    border-color: #ee4266;
+    box-shadow: 0 0px 4px 0px rgba(238, 66, 102, 0.2);
+  }
+
+  .thumbnail img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+  }
+
+  /* Product Details */
+  .product-details {
+    padding: 2rem;
+    background: white;
+  }
+
+  .product-category {
+    color: #ee4266;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    margin-bottom: 0.5rem;
+  }
+
+  .product-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #25262a;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+  }
+
+  .product-price-section {
+    margin: 1.5rem 0;
+    padding: 1.5rem;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border: 1px solid #edf0f5;
+  }
+
+  .current-price {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #25262a;
+    margin-bottom: 0.3rem;
+  }
+
+  .original-price {
+    font-size: 1rem;
+    text-decoration: line-through;
+    color: #8c92a0;
+    margin-bottom: 0.3rem;
+  }
+
+  .discount-badge {
+    display: inline-block;
+    background: #ee4266;
+    color: white;
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .product-specs {
+    margin: 1.5rem 0;
+  }
+
+  .specs-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #25262a;
+    margin-bottom: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    position: relative;
+  }
+
+  .specs-title:before {
+    content: "";
+    left: 0;
+    top: 0;
+    position: absolute;
+    width: 40px;
+    height: 2px;
+    background: #ee4266;
+  }
+
+  .specs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 0.8rem;
+  }
+
+  .spec-item {
+    background: #f8f9fa;
+    padding: 1rem;
+    border-radius: 8px;
+    border: 1px solid #edf0f5;
+    border-left: 3px solid #ee4266;
+  }
+
+  .spec-label {
+    font-weight: 600;
+    color: #25262a;
+    font-size: 0.8rem;
+    margin-bottom: 0.2rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .spec-value {
+    color: #8c92a0;
+    font-weight: 500;
+    font-size: 0.9rem;
+  }
+
+  .product-description {
+    margin: 1.5rem 0;
+    padding: 1.5rem;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border: 1px solid #edf0f5;
+  }
+
+  .description-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #25262a;
+    margin-bottom: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    position: relative;
+  }
+
+  .description-title:before {
+    content: "";
+    left: 0;
+    top: 0;
+    position: absolute;
+    width: 40px;
+    height: 2px;
+    background: #ee4266;
+  }
+
+  .description-text {
+    color: #8c92a0;
+    line-height: 1.7;
+    font-size: 0.9rem;
+  }
+
+  .payment-options {
+    margin: 1.5rem 0;
+    padding: 1.5rem;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border: 1px solid #edf0f5;
+  }
+
+  .payment-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #25262a;
+    margin-bottom: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    position: relative;
+  }
+
+  .payment-title:before {
+    content: "";
+    left: 0;
+    top: 0;
+    position: absolute;
+    width: 40px;
+    height: 2px;
+    background: #ee4266;
+  }
+
+  .payment-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .payment-list li {
+    margin: 0.5rem 0;
+    padding-left: 1.5rem;
+    position: relative;
+    font-size: 0.9rem;
+    color: #8c92a0;
+  }
+
+  .payment-list li:before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: #ee4266;
+    font-weight: bold;
+  }
+
+  /* Action Buttons */
+  .action-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin: 1.5rem 0;
+  }
+
+  .btn-add-cart {
+    background: #000;
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    height: 43px;
+  }
+
+  .btn-add-cart:hover {
+    background-color: #333333;
+    transform: translateY(-2px);
+    box-shadow: 0 3px 10px -4px rgba(0, 0, 0, 0.3);
+  }
+
+  .btn-buy-now {
+    background: #ee4266;
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    height: 43px;
+  }
+
+  .btn-buy-now:hover {
+    background-color: #d63384;
+    transform: translateY(-2px);
+    box-shadow: 0 3px 10px -4px rgba(238, 66, 102, 0.3);
+    color: white;
+    text-decoration: none;
+  }
+
+  /* Social Sharing */
+  .social-sharing {
+    margin: 1.5rem 0;
+    padding: 1.5rem;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border: 1px solid #edf0f5;
+  }
+
+  .social-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #25262a;
+    margin-bottom: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    position: relative;
+  }
+
+  .social-title:before {
+    content: "";
+    left: 0;
+    top: 0;
+    position: absolute;
+    width: 40px;
+    height: 2px;
+    background: #ee4266;
+  }
+
+  .social-buttons {
+    display: flex;
+    gap: 0.8rem;
+  }
+
+  .social-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+  }
+
+  .social-btn:hover {
+    transform: translateY(-2px);
+    color: white;
+    text-decoration: none;
+    box-shadow: 0 3px 10px -4px rgba(0, 0, 0, 0.3);
+  }
+
+  .social-btn.facebook { background: #1877f2; }
+  .social-btn.twitter { background: #1da1f2; }
+  .social-btn.instagram { background: #e4405f; }
+  .social-btn.whatsapp { background: #25d366; }
+
+  /* Loading Animation */
+  .loading {
+    opacity: 0.7;
+    pointer-events: none;
+  }
+
+  .success-animation {
+    animation: successPulse 0.5s ease;
+  }
+
+  @keyframes successPulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+  }
+
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .product-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .product-details {
+      padding: 1.5rem;
+    }
+    
+    .product-title {
+      font-size: 1.5rem;
+    }
+    
+    .action-buttons {
+      grid-template-columns: 1fr;
+    }
+    
+    .thumbnail-gallery {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .main-image-container {
+      height: 300px;
+    }
+  }
+</style>
+
+<div class="product-page">
+  <div class="product-container">
+    <div class="product-grid">
+      <!-- Image Gallery -->
+      <div class="image-gallery">
+        <div class="main-image-container">
+          <img src="{{product.images1.url}}" alt="{{product.name}}" class="main-image" id="mainImage">
         </div>
-        <!-- card right -->
-        <div class = "product-content" style="margin-top: calc(var(--top-value) + 500px);">
-          <h2 class = "product-title">{{product.name}}</h2>
-
-          <div class = "product-price">
-            <p class = "last-price">Old Price: <span>&#x20b9;{{product.mrp}}</span></p>
-            <p class = "new-price" style="">New Price: <span style="color: rgb(47, 46, 46);">&#x20b9;.{{product.price}} &nbsp;(&#8722;<span style="color: black;" id="discount"></span>&#37;)</span></p>
+        <div class="thumbnail-gallery">
+          <div class="thumbnail active" onclick="changeImage('{{product.images1.url}}', this)">
+            <img src="{{product.images1.url}}" alt="{{product.name}}">
           </div>
-
-          <div class = "product-detail">
-
-          <div class="highlights"> <br>
-            <h4>Highlights</h4>
-            <div class="highlightsdetails">
-              {% if product.Category.name == "mobile phones" %}
-              <ul>
-                <h1>{{cat}}</h1>
-                <li>RAM/ROM: &nbsp;{{product.description1}}</li> <!-- RAM/ROM-->
-                <li>DISPLAY: &nbsp;{{product.description2}}</li> <!-- Display-->
-                <li>CAMERA: &nbsp;{{product.description3}}</li> <!--camera-->
-                <li>BATTERY: &nbsp;{{product.description4}}</li> <!--Battery-->
-                <li>PROCESSOR: &nbsp;{{product.description5}}</li> <!--processor-->
-              </ul>
-             {% else %}
-              <ul>
-                <h1>{{cat}}</h1>
-                <li>&nbsp;{{product.description1}}</li> <!-- RAM/ROM-->
-                <li>&nbsp;{{product.description2}}</li> <!-- Display-->
-                <li>&nbsp;{{product.description3}}</li> <!--camera-->
-                <li>&nbsp;{{product.description4}}</li> <!--Battery-->
-                <li>&nbsp;{{product.description5}}</li> <!--processor-->
-              </ul>
-              {% endif %}
-
-              <ul>
-                <li>No cost EMI starting from ₹7,223/month</li>
-                <li>Cash on Delivery</li>
-                <li>Net banking & Credit/ Debit/ ATM card</li>
-              </ul>
-            </div>
-
-            <div class="description">
-              <h4>Description</h4>
-              <p>{{product.mainDescription}}</p>
-              
-            </div>
-            </div>
+          {% if product.images2 %}
+          <div class="thumbnail" onclick="changeImage('{{product.images2.url}}', this)">
+            <img src="{{product.images2.url}}" alt="{{product.name}}">
           </div>
-          <div class = "purchase-info">
-            
-            <button type = "button" value="{{product.id}}" class = "btn btn-buy" id="add-cart" onclick="changecolor2()">
-              Add to Cart <i class = "fas fa-shopping-cart"></i>
-            </button>
-            <button type = "button" class = "btn" id="add-cart" value="{{product.id}}" style="background-color: white; color:black"><a href="{% url 'cart_summary' %}">Buy Now</button></a>
+          {% endif %}
+          {% if product.images3 %}
+          <div class="thumbnail" onclick="changeImage('{{product.images3.url}}', this)">
+            <img src="{{product.images3.url}}" alt="{{product.name}}">
           </div>
-
-          <div class = "social-links">
-            <div class="shareat" style="margin-right: 10px;">
-             Share At: </div>
-            <a href = "https://www.facebook.com/">
-              <i class = "fab fa-facebook-f"></i>
-            </a>
-            <a href = "https://x.com/?lang=en">
-              <i class = "fab fa-twitter"></i>
-            </a>
-            <a href = "https://www.instagram.com/">
-              <i class = "fab fa-instagram"></i>
-            </a>
-            <a href = "https://web.whatsapp.com/">
-              <i class = "fab fa-whatsapp"></i>
-            </a>
+          {% endif %}
+          {% if product.images4 %}
+          <div class="thumbnail" onclick="changeImage('{{product.images4.url}}', this)">
+            <img src="{{product.images4.url}}" alt="{{product.name}}">
           </div>
-          <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+          {% endif %}
         </div>
       </div>
 
+      <!-- Product Details -->
+      <div class="product-details">
+        <div class="product-category">{{product.Category.name}}</div>
+        <h1 class="product-title">{{product.name}}</h1>
+
+        <!-- Price Section -->
+        <div class="product-price-section">
+          <div class="current-price">₹{{product.price}}</div>
+          {% if product.mrp > product.price %}
+          <div class="original-price">₹{{product.mrp}}</div>
+          <div class="discount-badge" id="discountBadge">
+            {{discount_percentage}}% OFF
+          </div>
+          {% endif %}
+        </div>
+
+        <!-- Product Specifications -->
+        <div class="product-specs">
+          <h3 class="specs-title">Key Features</h3>
+          <div class="specs-grid">
+            {% if product.Category.name == "mobile phones" %}
+              <div class="spec-item">
+                <div class="spec-label">RAM/ROM</div>
+                <div class="spec-value">{{product.description1}}</div>
+              </div>
+              <div class="spec-item">
+                <div class="spec-label">Display</div>
+                <div class="spec-value">{{product.description2}}</div>
+              </div>
+              <div class="spec-item">
+                <div class="spec-label">Camera</div>
+                <div class="spec-value">{{product.description3}}</div>
+              </div>
+              <div class="spec-item">
+                <div class="spec-label">Battery</div>
+                <div class="spec-value">{{product.description4}}</div>
+              </div>
+              <div class="spec-item">
+                <div class="spec-label">Processor</div>
+                <div class="spec-value">{{product.description5}}</div>
+              </div>
+            {% else %}
+              <div class="spec-item">
+                <div class="spec-label">Feature 1</div>
+                <div class="spec-value">{{product.description1}}</div>
+              </div>
+              <div class="spec-item">
+                <div class="spec-label">Feature 2</div>
+                <div class="spec-value">{{product.description2}}</div>
+              </div>
+              <div class="spec-item">
+                <div class="spec-label">Feature 3</div>
+                <div class="spec-value">{{product.description3}}</div>
+              </div>
+              <div class="spec-item">
+                <div class="spec-label">Feature 4</div>
+                <div class="spec-value">{{product.description4}}</div>
+              </div>
+              <div class="spec-item">
+                <div class="spec-label">Feature 5</div>
+                <div class="spec-value">{{product.description5}}</div>
+              </div>
+            {% endif %}
+          </div>
+        </div>
+
+        <!-- Product Description -->
+        {% if product.mainDescription %}
+        <div class="product-description">
+          <h3 class="description-title">Description</h3>
+          <p class="description-text">{{product.mainDescription}}</p>
+        </div>
+        {% endif %}
+
+        <!-- Payment Options -->
+        <div class="payment-options">
+          <h3 class="payment-title">Payment & Delivery Options</h3>
+          <ul class="payment-list">
+            <li>No cost EMI starting from ₹7,223/month</li>
+            <li>Cash on Delivery available</li>
+            <li>Net banking & Credit/Debit/ATM card</li>
+            <li>Free delivery on orders above ₹499</li>
+            <li>7-day easy returns</li>
+          </ul>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="action-buttons">
+          <button type="button" value="{{product.id}}" class="btn-add-cart" id="add-cart">
+            <i class="fas fa-shopping-cart"></i>
+            Add to Cart
+          </button>
+          <a href="{% url 'cart_summary' %}" class="btn-buy-now">
+            <i class="fas fa-bolt"></i>
+            Buy Now
+          </a>
+        </div>
+
+        <!-- Social Sharing -->
+        <div class="social-sharing">
+          <div class="social-title">Share this product</div>
+          <div class="social-buttons">
+            <a href="https://www.facebook.com/sharer/sharer.php?u={{request.build_absolute_uri}}" target="_blank" class="social-btn facebook">
+              <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="https://twitter.com/intent/tweet?text=Check out this amazing product: {{product.name}}&url={{request.build_absolute_uri}}" target="_blank" class="social-btn twitter">
+              <i class="fab fa-twitter"></i>
+            </a>
+            <a href="https://www.instagram.com/" target="_blank" class="social-btn instagram">
+              <i class="fab fa-instagram"></i>
+            </a>
+            <a href="https://wa.me/?text=Check out this amazing product: {{product.name}} {{request.build_absolute_uri}}" target="_blank" class="social-btn whatsapp">
+              <i class="fab fa-whatsapp"></i>
+            </a>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
+</div>
 
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script>
+  // Calculate discount percentage
+  const mrp = parseFloat('{{product.mrp}}');
+  const currentPrice = parseFloat('{{product.price}}');
+  const discountPercentage = Math.round(((mrp - currentPrice) / mrp) * 100);
+  
+  // Update discount badge
+  if (document.getElementById('discountBadge')) {
+    document.getElementById('discountBadge').textContent = discountPercentage + '% OFF';
+  }
 
-
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-    <script>
-      discount_placeholder = document.getElementById('discount');
-      mrp = {{product.mrp}}
-      
-      current_price = {{product.price}}
-
-      discount = ((mrp-current_price)/mrp)*100;
-      discount_placeholder.textContent = Math.round(discount);
-
-      //check if btn is pressed
-      $(document).on('click', '#add-cart', function(e) {
-        e.preventDefault();
-        $.ajax({
-            type: 'POST',
-            url: '{% url "cart_add" %}',
-            data: {
-                product_id: $('#add-cart').val(),
-                csrfmiddlewaretoken: '{{ csrf_token }}',
-                action: 'post'
-            },
-            success: function(json){
-                document.getElementById('cart_quantity').textContent = json.qty;
-            },
-            error: function(xhr, errmsg, err){
-                // Handle error
-            }
-        });
-    });
-  </script>
-  <script>
-    function changecolor2(){
-      const btn = document.getElementById('add-cart').style;
-      btn.backgroundColor = "black";
-      btn.color="white"
-    }
-  </script>
+  // Image gallery functionality
+  function changeImage(imageSrc, thumbnail) {
+    document.getElementById('mainImage').src = imageSrc;
     
+    // Remove active class from all thumbnails
+    document.querySelectorAll('.thumbnail').forEach(thumb => {
+      thumb.classList.remove('active');
+    });
+    
+    // Add active class to clicked thumbnail
+    thumbnail.classList.add('active');
+  }
+
+  // Add to cart functionality
+  $(document).on('click', '#add-cart', function(e) {
+    e.preventDefault();
+    
+    const button = $(this);
+    const originalText = button.html();
+    
+    // Add loading state
+    button.addClass('loading');
+    button.html('<i class="fas fa-spinner fa-spin"></i> Adding...');
+    
+    $.ajax({
+      type: 'POST',
+      url: '{% url "cart_add" %}',
+      data: {
+        product_id: $('#add-cart').val(),
+        csrfmiddlewaretoken: '{{ csrf_token }}',
+        action: 'post'
+      },
+      success: function(json) {
+        // Update cart quantity
+        document.getElementById('cart_quantity').textContent = json.qty;
+        
+        // Show success state
+        button.removeClass('loading');
+        button.addClass('success-animation');
+        button.html('<i class="fas fa-check"></i> Added!');
+        
+        // Reset button after 2 seconds
+        setTimeout(() => {
+          button.removeClass('success-animation');
+          button.html(originalText);
+        }, 2000);
+      },
+      error: function(xhr, errmsg, err) {
+        // Show error state
+        button.removeClass('loading');
+        button.html('<i class="fas fa-exclamation-triangle"></i> Error!');
+        
+        // Reset button after 2 seconds
+        setTimeout(() => {
+          button.html(originalText);
+        }, 2000);
+      }
+    });
+  });
+</script>
+
 {% endblock %}

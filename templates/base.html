@@ -68,12 +68,55 @@
 
   <script src="https://accounts.google.com/gsi/client" async defer></script>
 
+  <style>
+    #loader-overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      z-index: 99999;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      transition: opacity 0.2s;
+    }
+    #loader-overlay .spinner-border {
+      width: 5rem; height: 5rem;
+    }
+    #loader-overlay .loader-message {
+      margin-top: 1.5rem;
+      font-size: 1.2rem;
+      color: #333;
+      text-align: center;
+    }
+    @media (max-width: 600px) {
+      #loader-overlay .spinner-border {
+        width: 3rem; height: 3rem;
+      }
+      #loader-overlay .loader-message {
+        font-size: 1rem;
+        margin-top: 1rem;
+      }
+    }
+  </style>
+
 </head>
 
-<body onload="hidethis">
-  <div class="loader">
-    <div class="round"></div>
+<body>
+  <!-- Loading Buffer -->
+  <div id="loader-overlay">
+    <div class="spinner-border text-dark" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+    <div class="loader-message">Loading, please wait...</div>
   </div>
+  <script>
+    window.addEventListener('load', function() {
+      var loader = document.getElementById('loader-overlay');
+      if (loader) loader.style.display = 'none';
+    });
+  </script>
   {% load socialaccount %}
   <div class="site-wrap">
     <div class="site-navbar py-2">
