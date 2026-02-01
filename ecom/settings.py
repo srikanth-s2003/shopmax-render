@@ -19,7 +19,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY', default="django-insecure-r0od)8#qrnnx6
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG', 'True') == 'True'
 
-ALLOWED_HOSTS = ['shopmax-render.onrender.com', '127.0.0.1', 'localhost', '0.0.0.0', '.vercel.app', '.now.sh']
+ALLOWED_HOSTS = ['*']  # Simplified for Vercel
 
 CSRF_TRUSTED_ORIGINS = ['https://shopmax-render.onrender.com', 'http://127.0.0.1', 'http://localhost', 'https://*.vercel.app']
 # Application definition
@@ -66,37 +66,25 @@ ACCOUNT_EMAIL_VERIFICATION = 'none'
 
 SECURE_CROSS_ORIGIN_OPENER_POLICY = "same-origin-allow-popups"
 
-# Cache settings
+# Cache settings - Disabled for Vercel serverless
 CACHES = {
     'default': {
-        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
-        'LOCATION': 'unique-snowflake',
-        'TIMEOUT': 300,  # 5 minutes default timeout
+        'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
     }
 }
 
-# Cache middleware settings
+# Middleware - Simplified for Vercel
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     "django.contrib.sessions.middleware.SessionMiddleware",
-    "django.middleware.cache.UpdateCacheMiddleware",  # Add this
     "django.middleware.common.CommonMiddleware",
-    "django.middleware.cache.FetchFromCacheMiddleware",  # Add this
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "allauth.account.middleware.AccountMiddleware",
-    'ecom.middleware.ExtendSessionMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
-
-# Cache settings
-CACHE_MIDDLEWARE_SECONDS = 300
-CACHE_MIDDLEWARE_KEY_PREFIX = ''
-
-# Static files compression and caching
-WHITENOISE_MAX_AGE = 31536000  # 1 year in seconds
 
 # Template caching
 TEMPLATES = [
@@ -175,13 +163,13 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = ['email']
 # SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = os.environ.get('SOCIAL_AUTH_GOOGLE_OAUTH2_KEY')
 # SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = os.environ.get('SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET')
 
-# Session management
-SESSION_COOKIE_AGE = 60 * 60 * 24 * 30  # 30 days
-SESSION_SAVE_EVERY_REQUEST = True  # Save the session to the database on every request
+# Session management - Simplified for Vercel
+SESSION_COOKIE_AGE = 60 * 60 * 24 * 7  # 7 days
+SESSION_SAVE_EVERY_REQUEST = False  # Disabled for Vercel performance
 SESSION_EXPIRE_AT_BROWSER_CLOSE = False
-SESSION_COOKIE_SECURE = os.environ.get('SESSION_COOKIE_SECURE', default=False)
+SESSION_COOKIE_SECURE = False  # Will be True in production with HTTPS
 SESSION_COOKIE_HTTPONLY = True
-SESSION_COOKIE_SAMESITE = 'Lax'  # or 'Strict'
+SESSION_COOKIE_SAMESITE = 'Lax'
 
 # Email backend os.environ.geturation
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
