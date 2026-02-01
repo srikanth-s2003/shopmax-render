@@ -17,11 +17,11 @@ load_dotenv()
 SECRET_KEY = os.environ.get('SECRET_KEY', default="django-insecure-r0od)8#qrnnx61sp@9f=+fg_c(k&w!t^4*vta!3wa2posqcehe")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DEBUG', default=True)
+DEBUG = os.environ.get('DEBUG', 'True') == 'True'
 
-ALLOWED_HOSTS = ['shopmax-render.onrender.com', '127.0.0.1', 'localhost', '0.0.0.0']
+ALLOWED_HOSTS = ['shopmax-render.onrender.com', '127.0.0.1', 'localhost', '0.0.0.0', '.vercel.app', '.now.sh']
 
-CSRF_TRUSTED_ORIGINS = ['https://shopmax-render.onrender.com', 'http://127.0.0.1', 'http://localhost']
+CSRF_TRUSTED_ORIGINS = ['https://shopmax-render.onrender.com', 'http://127.0.0.1', 'http://localhost', 'https://*.vercel.app']
 # Application definition
 SITE_ID = int(os.environ.get('SITE_ID', 1))
 
@@ -123,49 +123,13 @@ TEMPLATES = [
 
 ROOT_URLCONF = 'ecom.urls'
 
-# Database configuration
-# DATABASES = {
-#         'default': {
-#             'ENGINE': 'django.db.backends.postgresql',
-#             'NAME': 'postgres',
-#             'USER' : 'postgres',
-#             'PASSWORD' : os.environ.get('POSTGRES_PASSWORD'),
-            
-#             'HOST' : 'db.qeqbbozzesguzpgngxyq.supabase.co',
-#             'PORT' : '5432', 
-#     }
-# }
-
-# DATABASES["default"] = dj_database_url.parse(os.environ.get("Supabase-database"))
-
-
-if os.environ.get('DATABASE_URL'):
-    DATABASES = {
-        'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
+# Database configuration - Using SQLite
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
-else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': os.environ.get('DB_NAME'),
-            'USER': os.environ.get('DB_USER'),
-            'PASSWORD': os.environ.get('DB_PASSWORD'),
-            'HOST': os.environ.get('DB_HOST'),
-            'PORT': os.environ.get('DB_PORT', 5432),
-        }
-    }
-
-
-    # DATABASES = {
-    #     'default': {
-    #         'ENGINE': 'django.db.backends.postgresql',
-    #         'NAME': os.environ.get('DB_NAME'),
-    #         'USER': os.environ.get('DB_USER'),
-    #         'PASSWORD': os.environ.get('DB_PASSWORD'),
-    #         'HOST': os.environ.get('DB_HOST'),
-    #         'PORT': os.environ.get('DB_PORT', 5432),
-    #     }
-    # }
+}
 
 
 # Password validation
