@@ -8,15 +8,15 @@ else
 fi
 
 echo "Running migrations..."
-python3.11 manage.py migrate --noinput
+python manage.py migrate --noinput
 
 echo "Loading initial data..."
-python3.11 manage.py loaddata datadabse.json || echo "Data already loaded or file not found"
+python manage.py loaddata datadabse.json || echo "Data already loaded or file not found"
 
 echo "Setting up social auth..."
-python3.11 setup_social_auth.py || echo "Social auth setup skipped"
+python setup_social_auth.py || echo "Social auth setup skipped"
 
 echo "Collecting static files..."
-python3.11 manage.py collectstatic --noinput --clear
+python manage.py collectstatic --noinput --clear
 
 echo "Build completed!"
