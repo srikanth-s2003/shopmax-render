@@ -103,6 +103,7 @@ TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
         "DIRS": [BASE_DIR / 'templates'],
+        "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
                 "django.template.context_processors.debug",
@@ -111,19 +112,14 @@ TEMPLATES = [
                 "django.contrib.messages.context_processors.messages",
                 "cart.context_processors.cart",
             ],
-            'loaders': [
-                ('django.template.loaders.cached.Loader', [
-                    'django.template.loaders.filesystem.Loader',
-                    'django.template.loaders.app_directories.Loader',
-                ]),
-            ],
         },
     },
 ]
 
 ROOT_URLCONF = 'ecom.urls'
 
-# Database configuration - Using SQLite
+# Database configuration - SQLite only (for Vercel demo)
+# Note: Database is read-only after deployment on Vercel
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
